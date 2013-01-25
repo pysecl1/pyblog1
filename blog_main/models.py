@@ -6,7 +6,7 @@ gender_choices = (('m', 'male'), ('f', 'female'))
 
 class Blogs (models.Model):
     pass
-    user_id = models.ForeignKey()
+    #user_id = models.ForeignKey()
     title = models.CharField(max_length=50)
     description = models.TextField()
     logo = models.FileField(upload_to='logo', blank=True)
@@ -23,7 +23,6 @@ class Users (models.Model):
 
 class Posts (models.Model):
     pass
-    blog_id = models.ForeignKey()
+    #blog_id = models.ForeignKey()
     title = models.CharField(max_length=100)
     description = models.TextField()
-    user_id =

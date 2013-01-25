@@ -1,5 +1,6 @@
 *.log
 *.pot
 local_settings.py
+*.pyc
 .idea
 blog/template_settings.py

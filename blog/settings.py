@@ -102,7 +102,16 @@ ROOT_URLCONF = 'blog.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-TEMPLATE_DIRS = ('D:/python/blog/blog/templates',)
+import template_settings
+
+
+
+
+
+
+
+
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -116,6 +125,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'blog_main',
+    #'south',
 )
 
 # A sample logging configuration. The only tangible logging
