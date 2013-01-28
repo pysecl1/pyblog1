@@ -119,7 +119,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'blog_main',
+    'sprofile',
     #'south',
+
 )
 
 # A sample logging configuration. The only tangible logging
