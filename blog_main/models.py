@@ -26,4 +26,3 @@ class Posts (models.Model):
     #blog_id = models.ForeignKey()
     title = models.CharField(max_length=100)
     description = models.TextField()
-    #user_id =
