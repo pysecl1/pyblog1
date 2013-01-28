@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'blog_main',
     #'south',
+    'fixture_generator',
 )
 
 # A sample logging configuration. The only tangible logging
