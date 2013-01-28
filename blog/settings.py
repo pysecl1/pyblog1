@@ -21,8 +21,9 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+from  database_settings import *
 
-import database_settings
+print DATABASES;
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -106,16 +107,7 @@ ROOT_URLCONF = 'blog.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-import template_settings
-
-
-
-
-
-
-
-
-
+from  template_settings import *
 
 INSTALLED_APPS = (
     'django.contrib.auth',
