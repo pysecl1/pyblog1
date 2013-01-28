@@ -120,7 +120,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'blog_main',
     'sprofile',
-    #'south',
+    'south',
+    #'fixture_generator',
 
 )
 
