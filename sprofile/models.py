@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User as sUser
 from django.utils.translation import ugettext as _
-#from friends.models import FriendManager
+
 GENDER_CHOICES=(('m',_('Male')),('f',_('Female')))
 # Create your models here.
 class User(models.Model):

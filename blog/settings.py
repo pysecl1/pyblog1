@@ -119,8 +119,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'blog_main',
-    #'south',
+
+    'sprofile',
+    'south',
     'fixture_generator',
+
+
 )
 
 # A sample logging configuration. The only tangible logging
