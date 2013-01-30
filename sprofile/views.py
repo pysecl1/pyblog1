@@ -30,7 +30,7 @@ def main(request):
 
         #print 'g'+user.get_profile().first_name+'G'
 
-    return render_to_response('main.html',{'anon':is_anon,'user':user});
+    return render_to_response('sprof/main.html',{'anon':is_anon,'user':user});
 
 def logout(request):
     user=request.user;
@@ -57,7 +57,7 @@ def login(request):
     form=LoginForm()
 
 
-    return render_to_response('login.html',{'form':form,'ok':pass_is_correct}, context_instance=RequestContext(request))
+    return render_to_response('sprof/login.html',{'form':form,'ok':pass_is_correct}, context_instance=RequestContext(request))
 
 
 def registration(request):
@@ -93,7 +93,7 @@ def registration(request):
 #        return redirect_to(request,'/posts/')
 #
 
-    return render_to_response('registration.html',{'form':form,'ok':pass_is_correct}, context_instance=RequestContext(request))
+    return render_to_response('sprof/registration.html',{'form':form,'ok':pass_is_correct}, context_instance=RequestContext(request))
 
 def profile(request):
     form=ProfileForm(instance=request.user.get_profile())
@@ -105,7 +105,7 @@ def profile(request):
             return redirect_to(request,'/')
 
 
-    return render_to_response('profile.html',{'form':form}, context_instance=RequestContext(request))
+    return render_to_response('sprof/profile.html',{'form':form}, context_instance=RequestContext(request))
 
 def users_list(request):
     user=request.user
@@ -118,7 +118,7 @@ def users_list(request):
         isanon='F';
 
 
-    return render_to_response('userslist.html',{'users':res,'me':request.user,'anon':isanon})
+    return render_to_response('sprof/userslist.html',{'users':res,'me':request.user,'anon':isanon})
 
 def user_profile(request,user_id):
     res=User.objects.get(id=user_id);
@@ -133,7 +133,7 @@ def user_profile(request,user_id):
 
 
     print isanon
-    return render_to_response('user_profile.html',{'user':res,'me':request.user,'anon':isanon,})
+    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,})
 
 
 
