@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "blog/base.html" %}
+{% block title %}Регистрация
+{% endblock %}
+{% block content %}
+    <form method="POST" action='/registration/'>{% csrf_token %}
+        {% if not ok  %}
+            <div class='error'>
+            Пароль и подтверждение не совпадают
+            <div>
+        {% endif %}
+        {{ form.as_ul }}
 
-</body>
-</html>
+        <input type="submit">
+
+    </form>
+
+
+{% endblock %}
+

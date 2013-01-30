@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^$','sprofile.views.main'),
     #url(r'^login/$','sprofile.views.login'),
     #url(r'^logout/$','sprofile.views.logout'),
-    #url(r'^registration/$','sprofile.views.registration'),
+    url(r'^registration/$','sprofile.views.registration'),
     #url(r'^profile/$','sprofile.views.profile'),
 
     #url(r'^users_list/$','sprofile.views.users_list'),
