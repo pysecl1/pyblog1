@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "blog_main.blogs", "fields": {"logo": "", "created_at": "2013-01-30", "description": "my test blog", "title": "Test blog 1"}}]
