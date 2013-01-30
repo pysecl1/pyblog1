@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'blog.views.home', name='home'),
     # url(r'^blog/', include('blog.foo.urls')),
     ##-
-    #url(r'^$','sprofile.views.main'),
+    url(r'^$','sprofile.views.main'),
     #url(r'^login/$','sprofile.views.login'),
     #url(r'^logout/$','sprofile.views.logout'),
     #url(r'^registration/$','sprofile.views.registration'),
