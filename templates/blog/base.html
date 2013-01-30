@@ -48,7 +48,14 @@
                 <ul class="nav">
                     <li class="active"><a href="/">Домой</a></li>
                     {#                    <li><a href="#contact">Контакт</a></li>#}
-
+                    {% block loginblock %}
+                        {% if not user.is_anonymous %}
+                           <li><a href="/logout">Выход</a></li>
+                        {% else %}
+                            <li><a href="/login">Вход</a></li>
+                            <li><a href="/registration">Регистрация</a></li>
+                        {% endif %}
+                    {% endblock %}
 
                 </ul>
             </div><!--/.nav-collapse -->

@@ -5,3 +5,4 @@ local_settings.py
 .idea
 blog/template_settings.py
 blog/database_settings.py
+blog/blog.db
