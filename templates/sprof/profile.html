@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{%extends "blog/base.html" %}
+{% block content %}
+    <form method="POST" action='/profile/' enctype="multipart/form-data">{% csrf_token %}
 
-</body>
-</html>
+        {{ form.as_ul }}
+        {{ form.avatar.value }}
+        {{ user.get_profile.avatar }}
+        <input type="submit">
+
+    </form>
+
+{% endblock %}

@@ -49,8 +49,9 @@ def login(request):
 
         if(user and user.is_active):
             dlogin(request);
-            #user.getProfile()
-            return redirect_to(request,'/profile/')
+            if(not user.get_profile().profile_completed()):
+
+                return redirect_to(request,'/profile/')
         pass_is_correct=False;
 
 
