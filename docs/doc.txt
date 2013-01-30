@@ -1,0 +1,81 @@
+USer@USER-ПК ~
+$ git clone git@github.com:pysecl1/pyblog1.git
+Cloning into 'pyblog1'...
+Enter passphrase for key '/c/Users/USer/.ssh/id_rsa':
+remote: Counting objects: 214, done.
+remote: Compressing objects: 100% (113/113), done.
+Receiving oemote: Total 214 (delta 89), reused 210 (delta 85)bjects:  40% (86/21
+
+Receiving objects: 100% (214/214), 150.50 KiB | 60 KiB/s, done.
+Resolving deltas: 100% (89/89), done.
+
+
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git fetch
+Enter passphrase for key '/c/Users/USer/.ssh/id_rsa':
+
+
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git checkout -b kom_settings origin/kom_settings
+Branch kom_settings set up to track remote branch kom_settings from origin.
+Switched to a new branch 'kom_settings'
+
+
+USer@USER-ПК ~/pyblog1 (kom_settings)
+$ git checkout master
+Switched to branch 'master'
+
+USer@USER-ПК ~/pyblog1 (master)
+$ ls blog
+__init__.py  fixture_gen.py  settings.py  urls.py  wsgi.py
+
+USer@USER-ПК ~/pyblog1 (master)
+$ ls blog/
+__init__.py  fixture_gen.py  settings.py  urls.py  wsgi.py
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git checkout kom_settings blog/database_settings.py
+
+
+USer@USER-ПК ~/pyblog1 (master)
+$ ls blog
+__init__.py           fixture_gen.py  urls.py
+database_settings.py  settings.py     wsgi.py
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git checkout kom_settings blog/template_settings.py
+
+USer@USER-ПК ~/pyblog1 (master)
+$ ls blog
+__init__.py           fixture_gen.py  template_settings.py  wsgi.py
+database_settings.py  settings.py     urls.py
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#       new file:   blog/database_settings.py
+#       new file:   blog/template_settings.py
+#
+
+USer@USER-ПК ~/pyblog1 (master)
+$ vim .gitignore
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git rm --cached blog/database_settings.py blog/template_settings.py
+rm 'blog/database_settings.py'
+rm 'blog/template_settings.py'
+
+USer@USER-ПК ~/pyblog1 (master)
+$ git status
+# On branch master
+nothing to commit, working directory clean
+
+USer@USER-ПК ~/pyblog1 (master)
+$ ls blog/
+__init__.py           fixture_gen.py  template_settings.py  wsgi.py
+database_settings.py  settings.py     urls.py
