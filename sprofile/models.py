@@ -22,6 +22,10 @@ class User(models.Model):
     def get_name(self):
         return self.first_name+' '+self.last_name;
 
+    def profile_completed(self):
+        return self.first_name!=None and self.first_name!='' \
+               and self.last_name!=None and self.last_name!= None
+
 
 
 
