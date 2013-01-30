@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, include, url
-
+from settings import APP_DIR
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'blog.views.home', name='home'),
+    url(r'^$', 'blog.views.home', name='home'),
     # url(r'^blog/', include('blog.foo.urls')),
     ##-
     #url(r'^$','sprofile.views.main'),
