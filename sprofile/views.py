@@ -52,6 +52,8 @@ def login(request):
             if(not user.get_profile().profile_completed()):
 
                 return redirect_to(request,'/profile/')
+            else:
+                return redirect_to(request,'/')
         pass_is_correct=False;
 
 
