@@ -1,1 +1,13 @@
 test
+
+User@ZX1 ~/PycharmProjects/pyblog1 (master)
+$ /c/Python27/python manage.py generate_fixture blog_main.test_blogs
+[{"pk": 1, "model": "blog_main.blogs", "fields": {"logo": "", "created_at": "201
+3-01-30", "description": "my test blog", "title": "Test blog 1"}}]
+User@ZX1 ~/PycharmProjects/pyblog1 (master)
+$ /c/Python27/python manage.py generate_fixture blog_main.test_blogs > blog_mai
+n/fixtures/blogs.json
+
+User@ZX1 ~/PycharmProjects/pyblog1 (master)
+$ /c/Python27/python manage.py loaddata blog_main/fixtures/blogs.json
+Installed 1 object(s) from 1 fixture(s)
