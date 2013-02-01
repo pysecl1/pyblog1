@@ -10,7 +10,7 @@ from forms import RegistrationForm
 from forms import ProfileForm
 from django.template import RequestContext
 from django.contrib.auth.views import login as dlogin
-#from django.contrib.auth.views import logout as dlogout
+from django.contrib.auth.views import logout as dlogout
 
 
 from django.contrib.auth.models import User as sUser
@@ -33,50 +33,52 @@ def main(request):
 
     return render_to_response('sprof/main.html',{'anon':is_anon,'user':user});
 
-#def logout(request):
-#    user=request.user;
-#    anon=user.is_anonymous();
-#    dlogout(request);
-#    return redirect_to(request,'/');
-
 def logout(request):
-    views.logout(request)
-    return redirect('/')
+    user=request.user;
+    anon=user.is_anonymous();
+    dlogout(request);
+    return redirect_to(request,'/');
 
-def login(request):
-
-    if request.POST:
-        '''login'''
-        print request.POST
-        user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
-        if user and user.is_active:
-            views.login(request)
-        return redirect('/')
-    else:
-        form=LoginForm()
-    return render(request,"sprof/login.html",{'form':form})
+#def logout(request):
+#    views.logout(request)
+#    return redirect('/')
 
 #def login(request):
-#    pass_is_correct=True
-#    if(request.method=='POST'):
-#        #user=User()
-#        user=authenticate(
-#            username=request.POST.get('username'),
-#            password=request.POST.get('password'),
-#        )
 #
-#        if(user and user.is_active):
-#            dlogin(request);
-#            if(not user.get_profile().profile_completed()):
-#
-#                return redirect_to(request,'/profile/')
-#        pass_is_correct=False;
-#
-#
-#    form=LoginForm()
-#
-#
-#    return render_to_response('sprof/login.html',{'form':form,'ok':pass_is_correct}, context_instance=RequestContext(request))
+#    if request.POST:
+#        '''login'''
+#        print request.POST
+#        user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+#        if user and user.is_active:
+#            views.login(request)
+#        return redirect('/')
+#    else:
+#        form=LoginForm()
+#    return render(request,"sprof/login.html",{'form':form})
+
+def login(request):
+    pass_is_correct=True
+    if(request.method=='POST'):
+        #user=User()
+        user=authenticate(
+            username=request.POST.get('username'),
+            password=request.POST.get('password'),
+        )
+
+        if(user and user.is_active):
+            dlogin(request);
+            if(not user.get_profile().profile_completed()):
+
+                return redirect_to(request,'/profile/')
+            else:
+                return redirect_to(request,'/')
+        pass_is_correct=False;
+
+
+    form=LoginForm()
+
+
+    return render_to_response('sprof/login.html',{'form':form,'ok':pass_is_correct}, context_instance=RequestContext(request))
 
 
 def registration(request):
