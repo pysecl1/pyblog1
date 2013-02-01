@@ -3,7 +3,7 @@
 # Create your views here.
 
 from models import *
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render, redirect
 from django.views.generic.simple import redirect_to
 from forms import LoginForm
 from forms import RegistrationForm
@@ -11,12 +11,13 @@ from forms import ProfileForm
 from django.template import RequestContext
 from django.contrib.auth.views import login as dlogin
 from django.contrib.auth.views import logout as dlogout
-from django.contrib.auth import authenticate
+
 
 from django.contrib.auth.models import User as sUser
 
-
+from django.contrib.auth import views, authenticate
 from django.http import HttpResponseRedirect
+
 from sprofile.models import User
 
 
@@ -38,6 +39,23 @@ def logout(request):
     dlogout(request);
     return redirect_to(request,'/');
 
+#def logout(request):
+#    views.logout(request)
+#    return redirect('/')
+
+#def login(request):
+#
+#    if request.POST:
+#        '''login'''
+#        print request.POST
+#        user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+#        if user and user.is_active:
+#            views.login(request)
+#        return redirect('/')
+#    else:
+#        form=LoginForm()
+#    return render(request,"sprof/login.html",{'form':form})
+
 def login(request):
     pass_is_correct=True
     if(request.method=='POST'):
@@ -49,8 +67,11 @@ def login(request):
 
         if(user and user.is_active):
             dlogin(request);
-            #user.getProfile()
-            return redirect_to(request,'/profile/')
+            if(not user.get_profile().profile_completed()):
+
+                return redirect_to(request,'/profile/')
+            else:
+                return redirect_to(request,'/')
         pass_is_correct=False;
 
 

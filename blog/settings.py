@@ -3,7 +3,7 @@
 import os
 APP_DIR=os.path.dirname(__file__)+'/../'
 
-
+AUTH_PROFILE_MODULE='sprofile.User'
 
 TEMPLATE_CONTEXT_PROCESSORS=('django.core.context_processors.static',
                              'django.core.context_processors.media',
