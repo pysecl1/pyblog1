@@ -44,6 +44,7 @@ def logout(request):
     return redirect('/')
 
 def login(request):
+
     if request.POST:
         '''login'''
         print request.POST
