@@ -40,3 +40,5 @@ def create_profile(sender,instance,created,**kwargs):
 
 models.signals.post_save.connect(create_profile,sender=sUser)
 
+
+

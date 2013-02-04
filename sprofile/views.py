@@ -1,6 +1,7 @@
 #_*_coding:utf-8 _*_
 
 # Create your views here.
+from blogs.models import Content
 
 from models import *
 from django.shortcuts import render_to_response, render, redirect
@@ -11,6 +12,7 @@ from forms import ProfileForm
 from django.template import RequestContext
 from django.contrib.auth.views import login as dlogin
 from django.contrib.auth.views import logout as dlogout
+from django.contrib.auth.decorators import login_required
 
 
 from django.contrib.auth.models import User as sUser
@@ -155,9 +157,10 @@ def user_profile(request,user_id):
     else:
         isanon='F';
 
-
+    posts = Content.objects.filter(author=user).order_by('-updated_at')[:10]
+    print posts
     print isanon
-    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,})
+    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,'posts':posts})
 
 
 #def user_profile(request, id=None):
@@ -166,4 +169,5 @@ def user_profile(request,user_id):
 #    else:
 #        user=request.user.get_profile
 #    return render(request,'sprof/user_profile.html',{'profile':user})
+
 
