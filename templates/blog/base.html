@@ -75,6 +75,24 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
+        {% if not user.is_anonymous %}
+
+        <div class="span2">{% comment %}LEFT{% endcomment %}
+
+                {% block sidebar %}
+
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Меню</li>
+                            <li><a href="/">Пример ссылки</a></li>
+                        </ul>
+                    </div><!--/.well -->
+
+                {% endblock %}
+            {% endif %}
+        </div><!--/span-->
+
+
 
         <div class="span9">{% comment %}RIGHT{% endcomment %}
             {% if messages %}
