@@ -142,7 +142,10 @@ def users_list(request):
     return render_to_response('sprof/userslist.html',{'users':res,'me':request.user,'anon':isanon})
 
 def user_profile(request,user_id):
-    res=User.objects.get(id=user_id);
+    if user_id!=None:
+        res=User.objects.get(id=user_id);
+    else:
+        user=request.user
     #print res;
     user=request.user
     anon=user.is_anonymous();
@@ -157,5 +160,10 @@ def user_profile(request,user_id):
     return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,})
 
 
-
+#def user_profile(request, id=None):
+#    if id is not None:
+#        user=User.objects.get(pk=id)
+#    else:
+#        user=request.user.get_profile
+#    return render(request,'sprof/user_profile.html',{'profile':user})
 
