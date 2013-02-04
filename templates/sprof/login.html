@@ -2,7 +2,7 @@
 {% block content %}
     <form action="" method="POST">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" class="btn btn">
-        <input type="reset" class="btn btn">
+        <input type="submit" class="btn btn" value="Войти">
+        <input type="reset" class="btn btn" value="Очистить">
     </form>
 {% endblock %}

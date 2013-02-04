@@ -1,8 +1,10 @@
 {% extends "blog/base.html" %}
-{% block title %}Блог
+{% block title %}абырвалг
 {% endblock %}
 {% block content %}
-   Контент
-
+    {% if not user.is_anonymous %}
+        <h1>Привет, {{ user }}!</h1><br>
+    {% endif %}
+        Контент
 
 {% endblock %}

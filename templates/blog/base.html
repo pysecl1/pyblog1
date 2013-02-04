@@ -50,7 +50,7 @@
                     {#                    <li><a href="#contact">Контакт</a></li>#}
                     {% block loginblock %}
                         {% if not user.is_anonymous %}
-                            <li><a href="/profile">Редактирование профиля</a></li>
+                            <li><a href="{% url sprofile %}">Мой профиль</a></li>
                            <li><a href="/profile">Редактирование профиля</a></li>
                            <li><a href="/logout">Выход</a></li>
                         {% else %}
