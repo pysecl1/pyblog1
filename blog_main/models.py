@@ -1,6 +1,10 @@
+#_*_coding:utf-8 _*_
 from django.db import models
-import datetime
 from django.contrib.auth.models import User as sUser
+from sprofile.models import User
+from django.utils.translation import ugettext as _
+import datetime
+
 # Create your models here.
 
 #gender_choices = (('m', 'male'), ('f', 'female'), ('g', 'germofroditto'))
@@ -14,15 +18,32 @@ from django.contrib.auth.models import User as sUser
 #    def __unicode__ (self):
 #        return self.username
 
-#class Blogs (models.Model):
-#    user_id = models.ForeignKey(Users)
-#    title = models.CharField(max_length=50)
-#    description = models.TextField()
+
+
+class Blog (models.Model):
+    user = models.ForeignKey(sUser, unique=True)
+    title = models.CharField(max_length=50)
+    description = models.TextField()
+
 #    logo = models.FileField(upload_to='logo', blank=True)
 #    created_at = models.DateField(blank=True, null=True, default=datetime.date.today())
-#
-#
-#
+    def __unicode__(self):
+
+        return u'Блог «%s» пользователя %s' % ( self.description, self.user.get_profile())
+
+    def getBlogByUser(self,author):
+        return Blog.objects.get(user=author);
+
+    def hasBlog(self,author):
+        pass;
+
+
+
+
+
+
+
+
 #class Posts (models.Model):
 #    blog_id = models.ForeignKey(Blogs)
 #    title = models.CharField(max_length=100)
