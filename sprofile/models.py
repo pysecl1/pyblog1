@@ -20,7 +20,7 @@ class User(models.Model):
         return u'%d — %s %s' % (self.user.id,  self.first_name, self.last_name)
 
     def get_name(self):
-        return self.first_name+' '+self.last_name;
+        return self.first_name+' '+self.last_name
 
     def profile_completed(self):
         return self.first_name!=None and self.first_name!='' \

@@ -50,10 +50,15 @@
                     {#                    <li><a href="#contact">Контакт</a></li>#}
                     {% block loginblock %}
                         {% if not user.is_anonymous %}
+<<<<<<< HEAD
                             <li>{% block name %}{% endblock %}</li>
                             <li><a href="/profile">Редактирование профиля {{ user.username }}</a></li>
                            <li><a href="/post">Добавить пост</a></li>
                             <li><a href="/content">Смотреть посты</a></li>
+=======
+                            <li><a href="{% url sprofile %}">Мой профиль</a></li>
+                           <li><a href="/profile">Редактирование профиля</a></li>
+>>>>>>> 748bbaa3fc46b54a27f049485fd59f7076fa8898
                            <li><a href="/logout">Выход</a></li>
                         {% else %}
                             <li><a href="/login">Вход</a></li>
@@ -77,6 +82,24 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
+        {% if not user.is_anonymous %}
+
+        <div class="span2">{% comment %}LEFT{% endcomment %}
+
+                {% block sidebar %}
+
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Меню</li>
+                            <li><a href="/">Пример ссылки</a></li>
+                        </ul>
+                    </div><!--/.well -->
+
+                {% endblock %}
+            {% endif %}
+        </div><!--/span-->
+
+
 
         <div class="span9">{% comment %}RIGHT{% endcomment %}
             {% if messages %}

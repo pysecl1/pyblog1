@@ -24,22 +24,22 @@ from sprofile.models import User
 
 
 def main(request):
-    user=request.user;
+    user=request.user
     anon=user.is_anonymous()
     if anon:
-        is_anon="Y";
+        is_anon="Y"
     else:
-        is_anon="F";
+        is_anon="F"
 
         #print 'g'+user.get_profile().first_name+'G'
 
-    return render_to_response('sprof/main.html',{'anon':is_anon,'user':user});
+    return render_to_response('sprof/main.html',{'anon':is_anon,'user':user})
 
 def logout(request):
-    user=request.user;
-    anon=user.is_anonymous();
-    dlogout(request);
-    return redirect_to(request,'/');
+    user=request.user
+    anon=user.is_anonymous()
+    dlogout(request)
+    return redirect_to(request,'/')
 
 #def logout(request):
 #    views.logout(request)
@@ -60,21 +60,21 @@ def logout(request):
 
 def login(request):
     pass_is_correct=True
-    if(request.method=='POST'):
+    if request.method=='POST':
         #user=User()
         user=authenticate(
             username=request.POST.get('username'),
             password=request.POST.get('password'),
         )
 
-        if(user and user.is_active):
-            dlogin(request);
-            if(not user.get_profile().profile_completed()):
+        if user and user.is_active:
+            dlogin(request)
+            if not user.get_profile().profile_completed():
 
                 return redirect_to(request,'/profile/')
             else:
                 return redirect_to(request,'/')
-        pass_is_correct=False;
+        pass_is_correct=False
 
 
     form=LoginForm()
@@ -84,28 +84,28 @@ def login(request):
 
 
 def registration(request):
-    pass_is_correct=True;
+    pass_is_correct=True
 
-    if(request.method=='POST'):
+    if request.method=='POST':
         user=sUser()
         user.username=request.POST.get('username')
 
 
-        if(request.POST.get('confirm')==request.POST.get('password')):
+        if request.POST.get('confirm')==request.POST.get('password'):
             user.set_password(request.POST.get('password'))
             user.save()
             newuser=authenticate(
                 username=user.username,
                 password=user.password,
             )
-            if(user and user.is_active):
-                dlogin(request);
+            if user and user.is_active:
+                dlogin(request)
                 print user.is_anonymous()
                 return redirect_to(request,'/profile/')
-        pass_is_correct=False;
+        pass_is_correct=False
 
 
-    form=RegistrationForm();
+    form=RegistrationForm()
 
 #    if(request.method=='POST'):
 #        post=Post()
@@ -120,10 +120,10 @@ def registration(request):
 
 def profile(request):
     form=ProfileForm(instance=request.user.get_profile())
-    if(request.method=='POST'):
+    if request.method=='POST':
         form=ProfileForm(instance=request.user.get_profile(), data=request.POST, files=request.FILES)
-        if(form.is_valid()):
-            print "VALID";
+        if form.is_valid():
+            print "VALID"
             form.save()
             return redirect_to(request,'/')
 
@@ -132,17 +132,18 @@ def profile(request):
 
 def users_list(request):
     user=request.user
-    anon=user.is_anonymous();
-    if(anon):
-        res=User.objects.all();
-        isanon='T';
+    anon=user.is_anonymous()
+    if anon:
+        res=User.objects.all()
+        isanon='T'
     else:
         res=User.objects.exclude(id=user.get_profile().id)
-        isanon='F';
+        isanon='F'
 
 
     return render_to_response('sprof/userslist.html',{'users':res,'me':request.user,'anon':isanon})
 
+<<<<<<< HEAD
 def user_profile(request,user_id):
     if user_id!=None:
         res=User.objects.get(id=user_id);
@@ -161,13 +162,32 @@ def user_profile(request,user_id):
     print posts
     print isanon
     return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,'posts':posts})
-
-
-#def user_profile(request, id=None):
-#    if id is not None:
-#        user=User.objects.get(pk=id)
+=======
+#def user_profile(request,user_id):
+#    if user_id!=None:
+#        res=User.objects.get(id=user_id)
 #    else:
-#        user=request.user.get_profile
-#    return render(request,'sprof/user_profile.html',{'profile':user})
+#        user=request.user
+#    #print res
+#    user=request.user
+#    anon=user.is_anonymous()
+#
+#    if(anon):
+#        isanon='T'
+#    else:
+#        isanon='F'
+#
+#
+#    print isanon
+#    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,})
+>>>>>>> 748bbaa3fc46b54a27f049485fd59f7076fa8898
+
+
+def user_profile(request, id=None):
+    if id:
+        user=User.objects.get(pk=id)
+    else:
+        user=request.user.get_profile
+    return render(request,'sprof/user_profile.html',{'profile':user})
 
 
