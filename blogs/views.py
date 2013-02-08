@@ -20,7 +20,13 @@ def wright_posts (request):
         form = ContentForm()
         return render(request, 'blog/post.html', {'form':form})
 
-def show_posts (request):
+def show_posts (request, page=1):
     posts = Content.objects.filter(author=request.user.get_profile())
+
+    from django.core.paginator import Paginator
+
+    paginate = Paginator(posts, 4)
+    page = request.GET.get('page')
+    posts = paginate.page(page)
 
     return render(request, 'blog/content.html', {'posts':posts})
