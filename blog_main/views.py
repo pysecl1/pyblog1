@@ -9,18 +9,22 @@ from blogs.models import Content
 from django.views.generic.simple import redirect_to
 from models import Blog
 
+#def home(request):
+#
+#    user=request.user
+#    anon=user.is_anonymous()
+#
+#    if(anon):
+#        isanon='T';
+#    else:
+#        isanon='F';
+#
+#    posts = Content.objects.filter(author=user).order_by('-updated_at')[:10]
+#    return render_to_response("blog/index.html",{'posts':posts}, context_instance=RequestContext(request))
+
 def home(request):
-
-    user=request.user
-    anon=user.is_anonymous()
-
-    if(anon):
-        isanon='T';
-    else:
-        isanon='F';
-
-    posts = Content.objects.filter(author=user).order_by('-updated_at')[:10]
-    return render_to_response("blog/index.html",{'posts':posts}, context_instance=RequestContext(request))
+    #return HttpResponse('<input type="text">')
+    return render_to_response("blog/index.html", context_instance=RequestContext(request))
 
 #def wright_post (request):
 #    if request.POST:

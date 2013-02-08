@@ -143,26 +143,26 @@ def users_list(request):
 
     return render_to_response('sprof/userslist.html',{'users':res,'me':request.user,'anon':isanon})
 
-<<<<<<< HEAD
-def user_profile(request,user_id):
-    if user_id!=None:
-        res=User.objects.get(id=user_id);
-    else:
-        user=request.user
-    #print res;
-    user=request.user
-    anon=user.is_anonymous();
 
-    if(anon):
-        isanon='T';
-    else:
-        isanon='F';
+#def user_profile(request,user_id):
+#    if user_id!=None:
+#        res=User.objects.get(id=user_id);
+#    else:
+#        user=request.user
+#    #print res;
+#    user=request.user
+#    anon=user.is_anonymous();
+#
+#    if(anon):
+#        isanon='T';
+#    else:
+#        isanon='F';
+#
+#    posts = Content.objects.filter(author=user).order_by('-updated_at')[:10]
+#    print posts
+#    print isanon
+#    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,'posts':posts})
 
-    posts = Content.objects.filter(author=user).order_by('-updated_at')[:10]
-    print posts
-    print isanon
-    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,'posts':posts})
-=======
 #def user_profile(request,user_id):
 #    if user_id!=None:
 #        res=User.objects.get(id=user_id)
@@ -180,7 +180,7 @@ def user_profile(request,user_id):
 #
 #    print isanon
 #    return render_to_response('sprof/user_profile.html',{'user':res,'me':request.user,'anon':isanon,})
->>>>>>> 748bbaa3fc46b54a27f049485fd59f7076fa8898
+
 
 
 def user_profile(request, id=None):
