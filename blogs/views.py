@@ -21,7 +21,7 @@ def wright_posts (request):
         return render(request, 'blog/post.html', {'form':form})
 
 def show_posts (request, page=1):
-    posts = Content.objects.filter(author=request.user.get_profile())
+    posts = Content.objects.filter(author=request.user.get_profile()).order_by('-created_at', 'updated_at')
 
     from django.core.paginator import Paginator
 
