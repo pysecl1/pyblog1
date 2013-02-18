@@ -3,8 +3,6 @@ from django.db import models
 from sprofile.models import User
 # Create your models here.
 
-
-
 class Content (models.Model):
     post = models.TextField()
     post_title = models.CharField(max_length=150)

@@ -43,3 +43,20 @@ def edit_blog(request):
         #return render_to_response('sprof/main.html',{'':user});
     else:
         return redirect_to(request,'/');
+
+def create_blog (request):
+    if request.POST:
+        blog = Blog()
+        blog.blog_title = request.POST.get('blog_title')
+        blog.blog_description = request.POST.get('blog_description')
+        blog.blog_tags = request.POST.get('blog_tags')
+        blog.save()
+    else:
+        from forms import BlogForm
+        form = BlogForm
+        return render(request, 'blog/blog.html', {'form':form})
+
+
+def blog_list (request):
+    pass
+

@@ -25,7 +25,7 @@ def show_posts (request, page=1):
 
     from django.core.paginator import Paginator
 
-    paginate = Paginator(posts, 4)
+    paginate = Paginator(posts, 10)
     page = request.GET.get('page',1)
     print type (page)
     posts = paginate.page(page)

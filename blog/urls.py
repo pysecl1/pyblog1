@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'blog_main.views.home', name='home'),
-    # url(r'^blog/', include('blog.foo.urls')),
+    #url(r'^blog/', include('blog.foo.urls')),
     ##-
     url(r'^login/$','sprofile.views.login', name='login'),
     url(r'^logout/$','sprofile.views.logout',name='logout'),
@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^profile/$','sprofile.views.profile'),
     url(r'^post/','blogs.views.wright_posts'),
     url(r'^content/','blogs.views.show_posts'),
+    url(r'^blogs/','blog_main.views.create_blog'),
 
     #url(r'^users_list/$','sprofile.views.users_list'),
 
