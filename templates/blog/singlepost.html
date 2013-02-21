@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+{% load comments %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+
+	<ul style="list-style: none;">
+		<li><h3>{{ post.post_title }}</h3></li>
+		<li><p>{{ post.post }}</p></li>
+		<li>аФФтор - {{ post.author }}</li>
+		
+		{% render_comment_list for post %}
+		
+		{% if user.is_authenticated %}
+			{% get_comment_form for blogs.content post.id as form %}
+			<form action="{% comment_form_target %}" method="POST">
+			{% csrf_token %}
+			{{ form.comment }}
+			{{ form.honeypot }}
+			{{ form.content_type }}
+			{{ form.object_pk }}
+			{{ form.timestamp }}
+			{{ form.security_hash }}
+			<input type="submit" value="Add comment" id="id_submit" />
+			</form>
+		{% else %}
+			<p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+		{% endif %}
+		{% get_comment_count for blogs.content post.id as comment_count %}
+		{{ comment_count }}
+		
+	</ul>
+
+{% endblock %}

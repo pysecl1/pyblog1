@@ -53,8 +53,11 @@
 
                             <li>{% block name %}{% endblock %}</li>
                             <li><a href="/profile">Редактирование профиля {{ user.username }}</a></li>
-                           <li><a href="/post">Добавить пост</a></li>
-                            <li><a href="/content">Смотреть посты</a></li>
+							{% if myBlog %}{% endif %}
+                           <!--<li><a href="/post">Добавить пост</a></li>
+						   
+						   <li><a href="/blogs">Cоздать блог</a></li>
+                            <li><a href="/content">Смотреть посты</a></li>/-->
 
                             <li><a href="{% url sprofile %}">Мой профиль</a></li>
 
@@ -65,7 +68,7 @@
                             <li><a href="{% url registration %}">Регистрация</a></li>
                         {% endif %}
                     {% endblock %}
-					{{ tra }}
+					
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -73,12 +76,6 @@
 
 
 </div>
-
-
-
-
-
-
 
 <div class="container-fluid">
     <div class="row-fluid">

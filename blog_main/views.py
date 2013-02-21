@@ -2,12 +2,12 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, render , redirect
 from django.contrib.auth.models import User
-
+from models import Blog
 from blogs.models import Content
 
 
 from django.views.generic.simple import redirect_to
-from models import Blog
+
 
 #def home(request):
 #
@@ -24,7 +24,16 @@ from models import Blog
 
 def home(request):
     #return HttpResponse('<input type="text">')
-    return render_to_response("blog/index.html", context_instance=RequestContext(request))
+    blogs = Blog.objects.all().order_by ('-created_at')
+    #user = request.user
+    myBlog = Blog().hasBlog(request.user)
+    print myBlog
+    #myBlog.getBlogByUser(user)
+
+##    print 'blogs'
+##    print blogs
+    return render (request, 'blog/index.html', {'blogs':blogs, 'myBlog':myBlog})
+    #return render_to_response("blog/index.html", context_instance=RequestContext(request))
 
 #def wright_post (request):
 #    if request.POST:
@@ -47,10 +56,12 @@ def edit_blog(request):
 def create_blog (request):
     if request.POST:
         blog = Blog()
-        blog.blog_title = request.POST.get('blog_title')
-        blog.blog_description = request.POST.get('blog_description')
-        blog.blog_tags = request.POST.get('blog_tags')
+        blog.user = request.user
+        blog.title = request.POST.get('blog_title')
+        blog.description = request.POST.get('blog_description')
+        blog.tags = request.POST.get('blog_tags')
         blog.save()
+        return redirect_to (request, '/')
     else:
         from forms import BlogForm
         form = BlogForm
@@ -58,5 +69,9 @@ def create_blog (request):
 
 
 def blog_list (request):
-    pass
+    blogs = Blog.objects.all()
+
+##    print 'blogs'
+##    print blogs
+    return render (request, 'blog/index.html', {'blogs':blogs})
 

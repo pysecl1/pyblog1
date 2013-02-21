@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     ##-
     url(r'^accounts/profile/$','sprofile.views.user_profile', name='sprofile'),
     url(r'^accounts/profile/(?P<id>\d+)$','sprofile.views.user_profile', name='sprofile'),
+    url(r'^view_post/(?P<id>\d+)$','blogs.views.singlePost'),
 
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -30,4 +31,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    (r'^comments/', include('django.contrib.comments.urls')),
 )

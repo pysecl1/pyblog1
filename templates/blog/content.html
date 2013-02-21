@@ -1,17 +1,20 @@
 {% extends "blog/base.html" %}
+{% load comments %}
 
 {% block content %}
 
     {% for post in posts %}
         <ul style="list-style: none;">
-            <li><h3>{{ post.post_title }}</h3></li>
+            <li><h3><a href="/view_post/{{ post.id }}">{{ post.post_title }}</a></h3></li>
             <li><p>{{ post.post }}</p></li>
             <li>аФФтор - {{ post.author }}</li>
+			
         </ul>
     {% endfor %}
 
     <div class="pagination">
     <span class="step-links">
+	{% if posts %}
         {% if posts.has_previous %}
             <a href="?page={{ posts.previous_page_number }}">previous</a>
         {% endif %}
@@ -23,7 +26,13 @@
         {% if posts.has_next %}
             <a href="?page={{ posts.next_page_number }}">next</a>
         {% endif %}
+	{% else %}
+		<h3>увы суда ещё никто не писал</h3>
+	{% endif %}
     </span>
+	{% if user.username == name %}
+    <a href="/post/?id={{blog}}">написать прост</a>
     </div>
+	{% endif %}
 
 {% endblock %}
