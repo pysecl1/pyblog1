@@ -1,9 +1,9 @@
 # Django settings for blog project.
 
 import os
-APP_DIR=os.path.dirname(__file__)+'\\..\\'
 
-print APP_DIR
+APP_DIR=os.path.dirname(__file__)+'/../'
+
 
 AUTH_PROFILE_MODULE='sprofile.User'
 
@@ -19,8 +19,10 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('Your Name', 'your_email@example.com'),
-)
+
+    ('Your Name', 'your_email@example.com'),
+    )
+
 
 MANAGERS = ADMINS
 from  database_settings import *
@@ -72,16 +74,20 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    APP_DIR+'static/',
-)
+
+    APP_DIR+'static',
+    )
+
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    )
+
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'oq7z*mjjghp-)^r%s1$rce56wln5*y$9xr)23fzglh)y0%3@1t'
@@ -90,8 +96,10 @@ SECRET_KEY = 'oq7z*mjjghp-)^r%s1$rce56wln5*y$9xr)23fzglh)y0%3@1t'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+
+    #     'django.template.loaders.eggs.Loader',
+    )
+
 TEMPLATE_DIRS = (APP_DIR+'templates',)
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -101,7 +109,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+
+    )
+
 
 ROOT_URLCONF = 'blog.urls'
 
@@ -121,16 +131,20 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+
     'blog_main',
+
     'blogs',
 
     'sprofile',
     'south',
+
     'fixture_generator',
     'django.contrib.comments',
 
 
 )
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -157,6 +171,8 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
+
         },
     }
 }
+
