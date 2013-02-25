@@ -21,23 +21,34 @@ import datetime
 
 
 class Blog (models.Model):
-    user = models.ForeignKey(sUser, unique=True)
-    title = models.CharField(max_length=50)
+    user = models.ForeignKey(sUser)
+    title = models.CharField(max_length=50, unique=True)
     description = models.TextField()
-
+    tags = models.CharField(max_length = 255)
+    #author = models.ForeignKey(sUser, unique=True)
 #    logo = models.FileField(upload_to='logo', blank=True)
-#    created_at = models.DateField(blank=True, null=True, default=datetime.date.today())
+    created_at = models.DateField(blank=True, null=True, default=datetime.date.today())
     def __unicode__(self):
 
         return u'Блог «%s» пользователя %s' % ( self.description, self.user.get_profile())
 
+#    def getBlogByUser(self, author):
+#        return Blog.objects.get(user=author);
 
 
-    def hasBlog(self,author):
-        pass;
+    def hasBlog(self, author):
+        try:
+            myBlogs = Blog.objects.filter(user=author)
+            return myBlogs
+        except:
+            noBlogs = 'у вас нет ни одного блога'
+            return 'у вас нет ни одного блога'
 
+    def getBlogId (self, blog):
+        return Blog.objects.get(id=blog)
 
-
+    def lastPosts (self):
+        pass
 
 
 

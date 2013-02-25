@@ -11,12 +11,9 @@
     {% else %}
 
     {% endifequal %}
-    {{ profile.id }}
+    <br />
 
-    {{ user.id }}<br>
-    {{ profile.id }}<br>
-
-    Здравствуйте, {{ profile.first_name }} {{ profile.last_name }}
+    {{ profile.first_name }} {{ profile.last_name }}
     <br>
     Пол: {{ profile.get_gender_display }}
     <br>

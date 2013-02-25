@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+
+    {% for blog in blogs %}
+        <ul style="list-style: none;">
+            <li><h3><a href="/content.html">{{ blog.blog_title }}</a></h3></li>
+            <li><p>{{ blog.blog_description }}</p></li>
+            <li>аФФтор - {{ blog.user }}</li>
+        </ul>
+    {% endfor %}
+
+
+
+{% endblock %}

@@ -2,12 +2,16 @@
 <html>
 <head>
     <title>
+		{{ sitename }}
         {% block title %}
         {% endblock %}
     </title>
     {% load staticfiles %}
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="c:/work_temp/web/phyton/pyblog1/static/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+	<link href="http://www.zvuki.crimea.com/wp-content/themes/zvuki/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+	<link href="http://st0.userapi.com/css/al/common.css?393" type="text/css" rel="stylesheet">
     <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="/admin">Админ</a>
+            <a class="brand" href="/admin" target="_blank">Админ</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="/">Домой</a></li>
@@ -53,19 +57,28 @@
 
                             <li>{% block name %}{% endblock %}</li>
                             <li><a href="/profile">Редактирование профиля {{ user.username }}</a></li>
-                           <li><a href="/post">Добавить пост</a></li>
-                            <li><a href="/content">Смотреть посты</a></li>
-
-                            <li><a href="{% url sprofile %}">Мой профиль</a></li>
-
-
-                           <li><a href="/logout">Выход</a></li>
+						<!--<li><a href="/post">Добавить пост</a></li>
+						   
+						    <li><a href="/blogs">Cоздать блог</a></li>
+                            <li><a href="/content">Смотреть посты</a></li>/-->
+							
+							<li><a href="{% url sprofile %}">Мой профиль</a></li>
+							
+							<li>{% block blogs %}
+							
+							{% if myBlog %}
+								<li><a href="{% url myblogs %}">Мои блоги</a></li>
+							{% endif %}
+							
+							{% endblock %}</li>
+							
+                           <li><a href="{% url logout %}">Выход</a></li>
                         {% else %}
-                            <li><a href="/login">Вход</a></li>
-                            <li><a href="/registration">Регистрация</a></li>
+                            <li><a href="{% url login %}">Вход</a></li>
+                            <li><a href="{% url registration %}">Регистрация</a></li>
                         {% endif %}
                     {% endblock %}
-
+					
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -74,29 +87,29 @@
 
 </div>
 
-
-
-
-
-
-
 <div class="container-fluid">
     <div class="row-fluid">
-        {% if not user.is_anonymous %}
+        {##}
 
         <div class="span2">{% comment %}LEFT{% endcomment %}
 
                 {% block sidebar %}
 
                     <div class="well sidebar-nav">
-                        <ul class="nav nav-list">
+                        <ul class="nav nav-list" style="float: none;">
                             <li class="nav-header">Меню</li>
                             <li><a href="/">Пример ссылки</a></li>
+							{% if not user.is_anonymous %}
+							{% if myBlog %}
+							<li><a href="/myblogs">Мои блоги</a></li>
+							{% endif %}
+							<li><a href="/blogs">Создать блог</a></li>
+							{% endif %}
                         </ul>
                     </div><!--/.well -->
 
                 {% endblock %}
-            {% endif %}
+            {##}
         </div><!--/span-->
 
 

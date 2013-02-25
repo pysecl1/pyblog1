@@ -1,11 +1,13 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+	{{ user.username }} {{ name }} {{ id }}
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Save">
     </form>
-
+	
+	
     {% for post in posts %}
         <ul style="list-style: none;">
             <li><h3>{{ post.post_title }}</h3></li>
@@ -16,5 +18,5 @@
     {% endfor %}
 
 
-   
+
 {% endblock %}

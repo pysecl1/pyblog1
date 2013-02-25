@@ -1,17 +1,35 @@
 {% extends "blog/base.html" %}
+{% load comments %}
 
+{% block title %}
+    {{ blog_obj.title }}
+{% endblock %}
 {% block content %}
 
-    {% for post in posts %}
+<h3>{{ blog_obj.title }}</h3>
+
+	{% for post in posts %}
+	<!-- {% for key, value in exc %}{% if key == post.id %}{{ value }}{%endif%}{% endfor %} -->
         <ul style="list-style: none;">
-            <li><h3>{{ post.post_title }}</h3></li>
+            <li><h5><a href="/view_post/{{ post.id }}">{{ post.post_title }}</a></h5></li>
             <li><p>{{ post.post }}</p></li>
             <li>аФФтор - {{ post.author }}</li>
+			{% get_comment_count for blogs.content post.id as comment_count %}
+			коментов - {{ comment_count }}
         </ul>
+
+		{% if user.username == post.author.first_name %}
+				<a href="{% url editpost post.id %}">редактировать</a>
+				<form action="{% url delpost post.id %}" method="post">{% csrf_token %}
+					<input type="submit" value="удалить">
+				</form>
+		{% endif %}
+		
     {% endfor %}
 
     <div class="pagination">
     <span class="step-links">
+	{% if posts %}
         {% if posts.has_previous %}
             <a href="?page={{ posts.previous_page_number }}">previous</a>
         {% endif %}
@@ -23,7 +41,14 @@
         {% if posts.has_next %}
             <a href="?page={{ posts.next_page_number }}">next</a>
         {% endif %}
+	{% else %}
+		<h5>увы суда ещё никто не писал</h5>
+	{% endif %}
     </span>
+	{% if user.username == name %}
+    <a href="/post/?id={{blog}}">написать пост</a>
+	{% endif %}
     </div>
+	
 
 {% endblock %}

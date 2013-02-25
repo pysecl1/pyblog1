@@ -15,8 +15,20 @@ from models import Blog
 #    confirm=forms.CharField(widget=forms.PasswordInput(),max_length=10);
 
 
+
 class BlogForm(ModelForm):
     class Meta:
         model=Blog
         exclude=['user',]
+
+##class BlogForm(ModelForm):
+##    class Meta:
+##        model=Blog,
+##        exclude=['user','created_at']
+
+#class BlogForm (forms.Form):
+#    blog_title = forms.CharField(max_length=150)
+#    blog_description = forms.CharField(widget=forms.Textarea)
+#    blog_tags = forms.CharField(max_length=255)
+
 
