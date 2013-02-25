@@ -31,8 +31,7 @@ class Blog (models.Model):
 
         return u'Блог «%s» пользователя %s' % ( self.description, self.user.get_profile())
 
-    def getBlogByUser(self,author):
-        return Blog.objects.get(user=author);
+
 
     def hasBlog(self,author):
         pass;

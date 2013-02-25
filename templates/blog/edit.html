@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block title %}Блог
+{% endblock %}
+{% block content %}
+    <form method="POST" action='/registration/'>{% csrf_token %}
+
+        {{ form.as_ul }}
+
+        <input type="submit" value="Сохранить">
+
+    </form>
+
+
+{% endblock %}
+

@@ -17,6 +17,6 @@ from models import Blog
 
 class BlogForm(ModelForm):
     class Meta:
-        model=Blog,
+        model=Blog
         exclude=['user',]
 

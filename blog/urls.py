@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^profile/$','sprofile.views.profile'),
     url(r'^post/','blogs.views.wright_posts'),
     url(r'^content/','blogs.views.show_posts'),
+    url(r'^editblog/','blog_main.views.edit_blog'),
 
     #url(r'^users_list/$','sprofile.views.users_list'),
 

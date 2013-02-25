@@ -8,6 +8,7 @@ from blogs.models import Content
 
 from django.views.generic.simple import redirect_to
 from models import Blog
+from forms import BlogForm
 
 #def home(request):
 #
@@ -37,9 +38,10 @@ def edit_blog(request):
     user=request.user;
     anon=user.is_anonymous()
     if not anon:
-        blog=Blog.getBlogByUser(user);
-        print blog;
-        return redirect_to(request,'/');
-        #return render_to_response('sprof/main.html',{'':user});
+
+        form=BlogForm()
+        blog=Blog.objects.filter(user=user);
+
+        return render_to_response('blog/edit.html',{'form':form},context_instance=RequestContext(request));
     else:
         return redirect_to(request,'/');
