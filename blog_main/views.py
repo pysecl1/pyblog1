@@ -34,7 +34,10 @@ def siteName(request):
 
 def home(request):
     #return HttpResponse('<input type="text">')
-    blogs = Blog.objects.all().order_by ('-created_at')
+    #kommented 24.02.2013
+    #nach
+    blogs = Blog.objects.all()#.order_by ('-created_at')
+    #kon
     #user = request.user
     myBlog = Blog().hasBlog(request.user)
 
