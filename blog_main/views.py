@@ -4,10 +4,15 @@ from django.shortcuts import render_to_response, render , redirect
 from django.contrib.auth.models import User
 from models import Blog
 from blogs.models import Content
+from django.http import HttpResponseRedirect
 
 
 from django.views.generic.simple import redirect_to
 
+
+def siteName(request):
+    sitename = 'ggg'
+    return render (request, 'blog/base.html', {'sitename':sitename})
 
 #def home(request):
 #
@@ -67,6 +72,16 @@ def create_blog (request):
         form = BlogForm
         return render(request, 'blog/blog.html', {'form':form})
 
+def delBlog (request, id=None):
+    if request.POST:
+        blog = Blog.objects.get(id=id)
+        blog.delete()
+        print 'deltanuto'
+        #ref = request.META.get('HTTP_REFERER', None)
+        if request.META.get('HTTP_REFERER', None):
+    	   return HttpResponseRedirect(request.META.get('HTTP_REFERER', None))
+    return redirect("/")
+
 
 def blog_list (request):
     blogs = Blog.objects.all()
@@ -74,4 +89,8 @@ def blog_list (request):
 ##    print 'blogs'
 ##    print blogs
     return render (request, 'blog/index.html', {'blogs':blogs})
+
+def myBlogs (request):
+    myBlog = Blog().hasBlog(request.user)
+    return render (request, 'blog/my-blogs.html', {'myBlog':myBlog})
 

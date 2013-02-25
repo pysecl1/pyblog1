@@ -40,7 +40,8 @@ class Blog (models.Model):
             myBlogs = Blog.objects.filter(user=author)
             return myBlogs
         except:
-            return
+            noBlogs = 'у вас нет ни одного блога'
+            return 'у вас нет ни одного блога'
 
     def getBlogId (self, blog):
         return Blog.objects.get(id=blog)

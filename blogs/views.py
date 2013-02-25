@@ -6,6 +6,8 @@ from sprofile.models import User
 from blog_main.models import Blog
 import random
 from blogs.forms import ContentForm
+from django.http import HttpResponseRedirect
+from sprofile.forms import ProfileForm
 
 
 
@@ -24,25 +26,38 @@ def wright_posts (request):
         blog = request.GET.get('id')
         post.blog_id = Blog().getBlogId(blog)
         post.save()
-        return redirect('/')
+        #return HttpResponseRedirect(request.META.get('HTTP_REFERER', None))
+        return redirect ("/")
     else:
         from forms import ContentForm
         form = ContentForm()
         return render(request, 'blog/post.html', {'form':form, 'id':id})
 
 @login_required
-def editPost (request):
-    form=ContentForm(instance=Content.object.get(id=id))
-    if request.method=='POST':
-        form=ProfileForm(instance=request.user.get_profile(), data=request.POST, files=request.FILES)
-        if form.is_valid():
-            print "VALID"
-            form.save()
-            return redirect_to(request,'/')
+def editPost (request, id=None):
+##    form=ContentForm(instance=Content.objects.get(id=id))
+    post = Content.objects.get(id=id)
+    form=ContentForm(instance = post)
+    #form=ProfileForm(instance=request.user.get_profile())
+    #form.post_title = post.post_title
+    return render (request, 'blog/edit-post.html', {'form':form})
+##    if request.method=='POST':
+##        form=ProfileForm(instance=request.user.get_profile(), data=request.POST, files=request.FILES)
+##        if form.is_valid():
+##            print "VALID"
+##            form.save()
+##            return redirect_to(request,'/')
 
 @login_required
-def delPost (request):
-    pass
+def delPost (request, id=None):
+    if request.POST:
+        post = Content.objects.get(id=id)
+        post.delete()
+        print 'deltanuto'
+        #ref = request.META.get('HTTP_REFERER', None)
+        if request.META.get('HTTP_REFERER', None):
+    	   return HttpResponseRedirect(request.META.get('HTTP_REFERER', None))
+    return redirect("/")
 
 def show_posts (request, page=1):
 
@@ -105,6 +120,7 @@ def show_posts (request, page=1):
 
 
 def singlePost (request, id=None):
+    print request.POST.get(id)
     post = Content.objects.get(id=id)
 ##    blog = request.POST.get(id)
 ##    blog_obj = Blog.objects.get(id=blog)

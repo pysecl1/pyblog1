@@ -12,15 +12,16 @@
 		<li><p>{{ post.post }}</p></li>
 		<li>аФФтор - {{ post.author }}</li>
 		</ul>
-		
-		{{ blog_obj }}
-		
-		{% if user.username == name %}
-				<a href="/editpost">редактировать</a>
+
+		{% if user.username == post.author.first_name %}
+				<a href="{% url editpost post.id %}">редактировать</a>
+				<form action="{% url delpost post.id %}" method="post">{% csrf_token %}
+					<input type="submit" value="удалить">
+				</form>
 		{% endif %}
 		
 		{% render_comment_list for post %}
-		
+		<h3>Оставить комент!</h3>
 		{% if user.is_authenticated %}
 			{% get_comment_form for blogs.content post.id as form %}
 			<form action="{% comment_form_target %}" method="POST">
@@ -32,7 +33,7 @@
 			{{ form.timestamp }}
 			{{ form.security_hash }}
 			<input type="hidden" name="next" value="{% url singlepost post.id %}" />
-			<input type="submit" value="Add comment" id="id_submit" />
+			<input type="submit" value="Запостить" id="id_submit" />
 			</form>
 		{% else %}
 			<p><a href="/login">Войдите </a> или <a href="/registration">зарегистрируйтесь</a> чтобы оставить коментарий.</p>
