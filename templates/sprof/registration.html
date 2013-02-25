@@ -3,11 +3,17 @@
 {% endblock %}
 {% block content %}
     <form method="POST" action='/registration/'>{% csrf_token %}
-        {% if not ok  %}
+		{% if user_exist == 'false' %}
+            <div class='error'>
+            Юзер с таким именем уже есть
+            <div>
+        {% endif %}
+        {% if ok == 'fasle' %}
             <div class='error'>
             Пароль и подтверждение не совпадают
             <div>
         {% endif %}
+		
         {{ form.as_ul }}
 
         <input type="submit" value="Регистрация">

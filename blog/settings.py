@@ -2,7 +2,9 @@
 
 import os
 
-APP_DIR=os.path.dirname(__file__)+'/../'
+#APP_DIR=os.path.dirname(__file__)+'/../'
+
+APP_DIR=os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/')
 
 
 AUTH_PROFILE_MODULE='sprofile.User'
@@ -67,7 +69,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = os.path.join(os.path.dirname(__file__), "../static/").replace('\\','/')#'static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -75,7 +77,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 
-    APP_DIR+'static',
+    #APP_DIR+'static',
+    'c:/work_temp/web/phyton/pyblog1/static',
     )
 
 
@@ -133,16 +136,11 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     'blog_main',
-
     'blogs',
-
     'sprofile',
     'south',
-
     'fixture_generator',
     'django.contrib.comments',
-
-
 )
 
 

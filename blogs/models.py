@@ -9,6 +9,7 @@ class Content (models.Model):
     post_title = models.CharField(max_length=150)
     author = models.ForeignKey(User)
     blog_id = models.ForeignKey(Blog, default='1')
+    #likes = models.IntegerField(default=0)
     created_at  = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     updated_at  = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 

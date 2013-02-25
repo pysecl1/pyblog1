@@ -1,15 +1,24 @@
 {% extends "blog/base.html" %}
 {% load comments %}
 
+{% block title %}
+    {{ blog_obj.title }}
+{% endblock %}
 {% block content %}
+
+<h3>{{ blog_obj.title }}</h3>
 
     {% for post in posts %}
         <ul style="list-style: none;">
-            <li><h3><a href="/view_post/{{ post.id }}">{{ post.post_title }}</a></h3></li>
+            <li><h5><a href="/view_post/{{ post.id }}">{{ post.post_title }}</a></h5></li>
             <li><p>{{ post.post }}</p></li>
             <li>аФФтор - {{ post.author }}</li>
-			
+			{% get_comment_count for blogs.content post.id as comment_count %}
+			коментов - {{ comment_count }}
         </ul>
+		{% if user.username == name %}
+				<a href="/editpost/{{ post.id }}">редактировать</a>
+		{% endif %}
     {% endfor %}
 
     <div class="pagination">
@@ -27,7 +36,7 @@
             <a href="?page={{ posts.next_page_number }}">next</a>
         {% endif %}
 	{% else %}
-		<h3>увы суда ещё никто не писал</h3>
+		<h5>увы суда ещё никто не писал</h5>
 	{% endif %}
     </span>
 	{% if user.username == name %}

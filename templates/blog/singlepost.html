@@ -2,7 +2,7 @@
 {% load comments %}
 
 {% block title %}
-    {{ post.title }}
+    {{ post.post_title }}
 {% endblock %}
 
 {% block content %}
@@ -11,6 +11,13 @@
 		<li><h3>{{ post.post_title }}</h3></li>
 		<li><p>{{ post.post }}</p></li>
 		<li>аФФтор - {{ post.author }}</li>
+		</ul>
+		
+		{{ blog_obj }}
+		
+		{% if user.username == name %}
+				<a href="/editpost">редактировать</a>
+		{% endif %}
 		
 		{% render_comment_list for post %}
 		
@@ -24,14 +31,14 @@
 			{{ form.object_pk }}
 			{{ form.timestamp }}
 			{{ form.security_hash }}
+			<input type="hidden" name="next" value="{% url singlepost post.id %}" />
 			<input type="submit" value="Add comment" id="id_submit" />
 			</form>
 		{% else %}
-			<p>Please <a href="{% url 'login/' %}">log in</a> to leave a comment.</p>
+			<p><a href="/login">Войдите </a> или <a href="/registration">зарегистрируйтесь</a> чтобы оставить коментарий.</p>
 		{% endif %}
-		{% get_comment_count for blogs.content post.id as comment_count %}
-		{{ comment_count }}
-		
-	</ul>
-
+	
+	{{ rand }} <br />
+	
+	
 {% endblock %}

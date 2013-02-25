@@ -4,6 +4,8 @@ from blogs.models import Content
 from django.shortcuts import render, redirect, get_object_or_404
 from sprofile.models import User
 from blog_main.models import Blog
+import random
+from blogs.forms import ContentForm
 
 
 
@@ -27,6 +29,20 @@ def wright_posts (request):
         from forms import ContentForm
         form = ContentForm()
         return render(request, 'blog/post.html', {'form':form, 'id':id})
+
+@login_required
+def editPost (request):
+    form=ContentForm(instance=Content.object.get(id=id))
+    if request.method=='POST':
+        form=ProfileForm(instance=request.user.get_profile(), data=request.POST, files=request.FILES)
+        if form.is_valid():
+            print "VALID"
+            form.save()
+            return redirect_to(request,'/')
+
+@login_required
+def delPost (request):
+    pass
 
 def show_posts (request, page=1):
 
@@ -56,6 +72,8 @@ def show_posts (request, page=1):
         name = request.GET.get('name')
         blog = request.GET.get('blog')
 
+        blog_obj = Blog.objects.get(id=blog)
+
 ##          if Content.objects.filter (blog_id=request.GET.get("blog")) == request.user:
 ##            posts = Content.objects.filter(author=request.user.get_profile()).order_by('-created_at', 'updated_at')
 ##          else:
@@ -83,12 +101,17 @@ def show_posts (request, page=1):
 ##    print type (page)
 ##    posts = paginate.page(page)
 
-    return render(request, 'blog/content.html', {'posts':posts,'blog':blog, 'name':name})
+    return render(request, 'blog/content.html', {'posts':posts,'blog':blog, 'name':name, 'blog_obj':blog_obj})
 
 
 def singlePost (request, id=None):
     post = Content.objects.get(id=id)
-    return render (request, 'blog/singlepost.html', {'post':post})
+##    blog = request.POST.get(id)
+##    blog_obj = Blog.objects.get(id=blog)
+    rand=()
+    rand = ((random.randint (0, 329)),(random.randint (0, 60)))
+    #rand = random.randint (0, 60)
+    return render (request, 'blog/singlepost.html', {'post':post, 'rand':rand})
 
 
 

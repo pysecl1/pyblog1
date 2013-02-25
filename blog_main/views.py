@@ -27,7 +27,7 @@ def home(request):
     blogs = Blog.objects.all().order_by ('-created_at')
     #user = request.user
     myBlog = Blog().hasBlog(request.user)
-    print myBlog
+
     #myBlog.getBlogByUser(user)
 
 ##    print 'blogs'

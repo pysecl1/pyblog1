@@ -6,8 +6,11 @@
         {% endblock %}
     </title>
     {% load staticfiles %}
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="c:/work_temp/web/phyton/pyblog1/static/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+	<link href="http://www.zvuki.crimea.com/wp-content/themes/zvuki/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+	<link href="http://st0.userapi.com/css/al/common.css?393" type="text/css" rel="stylesheet">
     <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +46,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="/admin">Админ</a>
+            <a class="brand" href="/admin" target="_blank">Админ</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="/">Домой</a></li>

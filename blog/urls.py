@@ -19,11 +19,11 @@ urlpatterns = patterns('',
 
     #url(r'^users_list/$','sprofile.views.users_list'),
 
-#    url(r'^user_profile/(?P<user_id>\d+)$','sprofile.views.user_profile'),
+    #url(r'^user_profile/(?P<user_id>\d+)$','sprofile.views.user_profile'),
     ##-
     url(r'^accounts/profile/$','sprofile.views.user_profile', name='sprofile'),
     url(r'^accounts/profile/(?P<id>\d+)$','sprofile.views.user_profile', name='sprofile'),
-    url(r'^view_post/(?P<id>\d+)$','blogs.views.singlePost'),
+    url(r'^view_post/(?P<id>\d+)$','blogs.views.singlePost', name='singlepost'),
 
 
     # Uncomment the admin/doc line below to enable admin documentation:

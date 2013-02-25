@@ -2,7 +2,6 @@
 
 # Create your views here.
 from blogs.models import Content
-
 from models import *
 from django.shortcuts import render_to_response, render, redirect
 from django.views.generic.simple import redirect_to
@@ -13,13 +12,9 @@ from django.template import RequestContext
 from django.contrib.auth.views import login as dlogin
 from django.contrib.auth.views import logout as dlogout
 from django.contrib.auth.decorators import login_required
-
-
 from django.contrib.auth.models import User as sUser
-
 from django.contrib.auth import views, authenticate
 from django.http import HttpResponseRedirect
-
 from sprofile.models import User
 
 
@@ -84,7 +79,9 @@ def login(request):
 
 
 def registration(request):
-    pass_is_correct=True
+    pass_is_correct='true'
+    user_exist = 'true'
+    form=RegistrationForm()
 
     if request.method=='POST':
         user=sUser()
@@ -93,7 +90,12 @@ def registration(request):
 
         if request.POST.get('confirm')==request.POST.get('password'):
             user.set_password(request.POST.get('password'))
-            user.save()
+            try:
+                user.save()
+            except:
+                user_exist = 'false'
+                return render_to_response ('sprof/registration.html',{'form':form,'user_exist':user_exist}, context_instance=RequestContext(request))
+
             newuser=authenticate(
                 username=user.username,
                 password=user.password,
@@ -102,10 +104,10 @@ def registration(request):
                 dlogin(request)
                 print user.is_anonymous()
                 return redirect_to(request,'/profile/')
-        pass_is_correct=False
+        pass_is_correct='false'
 
 
-    form=RegistrationForm()
+
 
 #    if(request.method=='POST'):
 #        post=Post()
