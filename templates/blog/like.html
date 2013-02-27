@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% load comments %}
+
+{% block title %}
+    {{ post.post_title }}
+{% endblock %}
+
+{% block content %}
+
+	<ul style="list-style: none;">
+		<li><h3>{{ like.user }}</h3></li>
+		<li><p>{{ like.like }}</p></li>
+		<li>{{ like.post }}</li>
+		
+		</ul>
+	
+	<br /> {{ rand }} <br />
+	
+	
+{% endblock %}

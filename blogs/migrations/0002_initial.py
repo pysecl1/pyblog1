@@ -8,21 +8,34 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'User'
-        db.create_table('sprofile_user', (
+        # Adding model 'Content'
+        db.create_table('blogs_content', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('gender', self.gf('django.db.models.fields.CharField')(default='m', max_length=200)),
-            ('birthday', self.gf('django.db.models.fields.DateField')(auto_now=True, blank=True)),
+            ('post', self.gf('django.db.models.fields.TextField')()),
+            ('post_title', self.gf('django.db.models.fields.CharField')(max_length=150)),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sprofile.User'])),
+            ('blog_id', self.gf('django.db.models.fields.related.ForeignKey')(default='1', to=orm['blog_main.Blog'])),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 27, 0, 0))),
+            ('updated_at', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 2, 27, 0, 0), auto_now=True, blank=True)),
         ))
-        db.send_create_signal('sprofile', ['User'])
+        db.send_create_signal('blogs', ['Content'])
+
+        # Adding model 'Likes'
+        db.create_table('blogs_likes', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sprofile.User'])),
+            ('like', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('post', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['blogs.Content'])),
+        ))
+        db.send_create_signal('blogs', ['Likes'])
 
 
     def backwards(self, orm):
-        # Deleting model 'User'
-        db.delete_table('sprofile_user')
+        # Deleting model 'Content'
+        db.delete_table('blogs_content')
+
+        # Deleting model 'Likes'
+        db.delete_table('blogs_likes')
 
 
     models = {
@@ -55,6 +68,30 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
+        'blog_main.blog': {
+            'Meta': {'object_name': 'Blog'},
+            'description': ('django.db.models.fields.TextField', [], {}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+        },
+        'blogs.content': {
+            'Meta': {'object_name': 'Content'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sprofile.User']"}),
+            'blog_id': ('django.db.models.fields.related.ForeignKey', [], {'default': "'1'", 'to': "orm['blog_main.Blog']"}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 2, 27, 0, 0)'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'post': ('django.db.models.fields.TextField', [], {}),
+            'post_title': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 2, 27, 0, 0)', 'auto_now': 'True', 'blank': 'True'})
+        },
+        'blogs.likes': {
+            'Meta': {'object_name': 'Likes'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'like': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'post': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['blogs.Content']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sprofile.User']"})
+        },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -73,4 +110,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['sprofile']
+    complete_apps = ['blogs']
