@@ -73,6 +73,13 @@
 							{% endblock %}</li>
 							
                            <li><a href="{% url logout %}">Выход</a></li>
+						   <li><form action="/search" method="GET">
+								<input type="text" name="search_term">
+								<input type="submit" value="искать">
+							</form>
+						   
+						   
+						   </li>
                         {% else %}
                             <li><a href="{% url login %}">Вход</a></li>
                             <li><a href="{% url registration %}">Регистрация</a></li>

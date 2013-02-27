@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+
+{% block title %}абырвал
+
+{% endblock %}
+{% block content %}
+
+    {% if not user.is_anonymous %}
+        <h1>Привет, {{ user }}!</h1><br>
+		{% if myBlog %}
+		<h3> Ваши блоги </h3>
+        
+		{% for myBlogs in myBlog %}
+		<ul style="list-style: none; border-bottom: 1px solid #000;">
+            <li><a href="/content/?blog={{ myBlogs.id }}&name={{ myBlogs.user }}"><h4>{{ myBlogs.title }}</h4></a></li>
+			<li>{{ myBlogs.description }}</li>
+			<li><form action="{% url delblog myBlogs.id %}" method="post">{% csrf_token %}
+					<input type="submit" value="удалить">
+				</form></li>
+		</ul>
+		{% endfor %}
+		
+		{% else %}
+			<h3> у вас нет ни одного блога </h3>
+		{% endif %}
+			<a href="/blogs">Cоздать блог!</a>
+       				
+		
+		
+    {% endif %}
+	
+
+{% endblock %}

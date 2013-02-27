@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from models import Blog
 from blogs.models import Content
 from django.http import HttpResponseRedirect
+from django.db import models
 
 
 from django.views.generic.simple import redirect_to
@@ -16,7 +17,9 @@ from forms import BlogForm
 
 def siteName(request):
     sitename = 'ggg'
-    return render (request, 'blog/base.html', {'sitename':sitename})
+    html = sitename.render(Context({'sitename':sitename}))
+##    return render (request, 'blog/base.html', {'sitename':sitename})
+    return HttpResponse(html)
 
 
 #def home(request):
@@ -33,6 +36,8 @@ def siteName(request):
 #    return render_to_response("blog/index.html",{'posts':posts}, context_instance=RequestContext(request))
 
 def home(request):
+    sitename = 'ggg'
+
     #return HttpResponse('<input type="text">')
     #kommented 24.02.2013
     #nach
@@ -45,7 +50,7 @@ def home(request):
 
 ##    print 'blogs'
 ##    print blogs
-    return render (request, 'blog/index.html', {'blogs':blogs, 'myBlog':myBlog})
+    return render (request, 'blog/index.html', {'blogs':blogs, 'myBlog':myBlog, 'sitename':sitename})
     #return render_to_response("blog/index.html", context_instance=RequestContext(request))
 
 #def wright_post (request):
@@ -103,4 +108,17 @@ def blog_list (request):
 def myBlogs (request):
     myBlog = Blog().hasBlog(request.user)
     return render (request, 'blog/my-blogs.html', {'myBlog':myBlog})
+
+def search (request):
+
+    if request.method == 'GET':
+        search_term = request.GET.get('search_term')
+        if search_term:
+##            search = Blog.objects.filter(title__contains=search_term)
+            search_blog = Blog.objects.filter(models.Q(title__contains=search_term) | models.Q(description__contains=search_term))
+            search_post = Content.objects.filter(models.Q(post_title__contains=search_term) | models.Q(post__contains=search_term))
+
+            return render (request, 'blog/search.html', {'search_blog':search_blog, 'search_post':search_post,'search_term':search_term})
+    return redirect ("/")
+
 
