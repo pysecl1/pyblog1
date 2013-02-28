@@ -74,11 +74,12 @@ def edit_blog(request):
 
 def create_blog (request):
     if request.POST:
+        print request.POST
         blog = Blog()
         blog.user = request.user
-        blog.title = request.POST.get('blog_title')
-        blog.description = request.POST.get('blog_description')
-        blog.tags = request.POST.get('blog_tags')
+        blog.title = request.POST.get('title')
+        blog.description = request.POST.get('description')
+        #blog.tags = request.POST.get('blog_tags')
         blog.save()
         return redirect_to (request, '/')
     else:
