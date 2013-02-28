@@ -11,24 +11,23 @@
 		<li><h3>{{ post.post_title }}</h3></li>
 		<li><p>{{ post.post }}</p></li>
 		<li>аФФтор - {{ post.author }}</li>
-		<li>{% if likes %}
-				<a href="{% url like post.id %}">{{ likes }}</a>
-			{% else %}
+		<li>{% if post.c_likes == 0 %}
 				<a href="{% url like post.id %}">пока никому не понравилось</a>
+			{% else %}
+				<a href="{% url like post.id %}">like {{ post.c_likes }}</a>
 			{% endif %}
 		
 		</li>
 		</ul>
-		
-		{{ likes.user }}
-		{{ likes.like }}
-		{{ likes.post }}
 
 		{% if user.username == post.author.first_name %}
 				<a href="{% url editpost post.id %}">редактировать</a>
 				<form action="{% url delpost post.id %}" method="post">{% csrf_token %}
 					<input type="submit" value="удалить">
 				</form>
+				{% if ref %}
+				<a href="/content?blog={{ post.blog_id.id }}&name={{ post.author.first_name }}">назад</a>
+				{% endif %}
 		{% endif %}
 		
 		{% render_comment_list for post %}

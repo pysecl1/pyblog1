@@ -17,6 +17,7 @@
 			<li>создан - {{ post.created_at }}</li>
 			{% if post.updated_at %}
 			<li>обновлен - {{ post.updated_at }}</li>
+			<li>понравилось {{ post.c_likes }} людям</li>
 			{% endif %}
 			{% get_comment_count for blogs.content post.id as comment_count %}
 			коментов - {{ comment_count }}
@@ -38,7 +39,7 @@
     <span class="step-links">
 	{% if posts %}
         {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">previous</a>
+            <a href="?page={{ posts.previous_page_number }}&blog={{ blog_obj.id }}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -46,7 +47,7 @@
         </span>
 
         {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.next_page_number }}&blog={{ blog_obj.id }}">next</a>
         {% endif %}
 	{% else %}
 		<h5>увы суда ещё никто не писал</h5>

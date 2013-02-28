@@ -9,6 +9,7 @@ from blogs.forms import ContentForm
 from django.http import HttpResponseRedirect
 from sprofile.forms import ProfileForm
 import datetime
+from django.db import models
 
 
 
@@ -112,7 +113,7 @@ def show_posts (request, page=1):
 
     from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
-    paginator = Paginator(posts, 10)
+    paginator = Paginator(posts, 5)
     try: page = int(request.GET.get("page", '1'))
     except ValueError: page = 1
 
@@ -132,30 +133,38 @@ def show_posts (request, page=1):
 def singlePost (request, id=None):
     post = Content.objects.get(id=id)
     likes = Likes.objects.filter(post = id)
-    print likes
     if not likes:
         likes = False
 ##    blog = request.POST.get(id)
 ##    blog_obj = Blog.objects.get(id=blog)
+    ref = request.META.get('HTTP_REFERER', None)
     rand=()
     rand = ((random.randint (0, 329)),(random.randint (0, 60)))
     #rand = random.randint (0, 60)
-    return render (request, 'blog/singlepost.html', {'post':post, 'rand':rand, 'likes':likes})
+    return render (request, 'blog/singlepost.html', {'post':post, 'rand':rand, 'likes':likes, 'ref':ref})
 
 def likeMe (request, id=None):
-    like = Likes.objects.filter(post = id)
-    print like
-    print id
-    if not like:
+    l_u = Likes.objects.filter(models.Q(post = id) & models.Q(user=request.user))
+    print 0 in l_u
+    if not l_u:
+        Content().plusLike(id)
         like = Likes()
         like.user = request.user.get_profile()
-        like.like = 1
+        like.like = 0
         like.post = Content.objects.get(id=id)
         like.save()
-    else:
-        like.like += 1
+        Likes().isLike(id, request.user)
 
-    return render (request, 'blog/like.html', {'like':like})
+    elif Likes.objects.filter(models.Q(user=request.user) & models.Q(like = 0)):
+        Content().plusLike(id)
+        Likes().isLike(id, request.user)
+
+    else:
+        Content().minusLike(id)
+        Likes().unLike(id, request.user)
+
+    ref = request.META.get ('HTTP_REFERER', None)
+    return redirect(ref)
 
 
 
