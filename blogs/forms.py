@@ -14,4 +14,4 @@ from blogs.models import Content
 class ContentForm(ModelForm):
     class Meta:
         model=Content
-        exclude=['author', 'blog_id']
+        exclude=['author', 'blog_id', 'created_at']

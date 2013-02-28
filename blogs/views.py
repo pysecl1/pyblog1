@@ -1,6 +1,6 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from blogs.models import Content
+from blogs.models import Content, Likes
 from django.shortcuts import render, redirect, get_object_or_404
 from sprofile.models import User
 from blog_main.models import Blog
@@ -8,6 +8,7 @@ import random
 from blogs.forms import ContentForm
 from django.http import HttpResponseRedirect
 from sprofile.forms import ProfileForm
+import datetime
 
 
 
@@ -27,7 +28,7 @@ def wright_posts (request):
         post.blog_id = Blog().getBlogId(blog)
         post.save()
         #return HttpResponseRedirect(request.META.get('HTTP_REFERER', None))
-        return redirect ("/")
+        return HttpResponseRedirect("/content/?blog=%s&name=%s" % request.POST.get('blog'), request.user.name)
     else:
         from forms import ContentForm
         form = ContentForm()
@@ -35,12 +36,21 @@ def wright_posts (request):
 
 @login_required
 def editPost (request, id=None):
-##    form=ContentForm(instance=Content.objects.get(id=id))
     post = Content.objects.get(id=id)
-    form=ContentForm(instance = post)
-    #form=ProfileForm(instance=request.user.get_profile())
-    #form.post_title = post.post_title
-    return render (request, 'blog/edit-post.html', {'form':form})
+    if request.user == post.author.user:
+        form=ContentForm(instance = post)
+        if request.POST.get('post_title') and request.POST.get('post'):
+            form=ContentForm(instance = post, data=request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect("/content/?blog=%s&name=%s" % (post.blog_id.id, request.user))
+            else:
+                error = True
+                return render (request, 'blog/edit-post.html', {'form':form, 'error':error})
+
+        return render (request, 'blog/edit-post.html', {'form':form})
+    return redirect ("/")
+##    return HttpResponseRedirect("/content/?blog=%s&name=%s" % (request.POST.get('blog'), request.user))
 ##    if request.method=='POST':
 ##        form=ProfileForm(instance=request.user.get_profile(), data=request.POST, files=request.FILES)
 ##        if form.is_valid():
@@ -55,8 +65,7 @@ def delPost (request, id=None):
         post.delete()
         print 'deltanuto'
         #ref = request.META.get('HTTP_REFERER', None)
-        if request.META.get('HTTP_REFERER', None):
-    	   return HttpResponseRedirect(request.META.get('HTTP_REFERER', None))
+        return HttpResponseRedirect("/content/?blog=%s&name=%s" % request.POST.get('blog'), request.user.name)
     return redirect("/")
 
 def show_posts (request, page=1):
@@ -97,6 +106,7 @@ def show_posts (request, page=1):
 ##            print usver
         posts = Content.objects.filter(blog_id=request.GET.get('blog')).order_by('-created_at', 'updated_at')
 
+
     else:
         posts = Content.objects.filter(author=request.GET.get('name')).order_by('-created_at', 'updated_at')
 
@@ -120,14 +130,32 @@ def show_posts (request, page=1):
 
 
 def singlePost (request, id=None):
-    print request.POST.get(id)
     post = Content.objects.get(id=id)
+    likes = Likes.objects.filter(post = id)
+    print likes
+    if not likes:
+        likes = False
 ##    blog = request.POST.get(id)
 ##    blog_obj = Blog.objects.get(id=blog)
     rand=()
     rand = ((random.randint (0, 329)),(random.randint (0, 60)))
     #rand = random.randint (0, 60)
-    return render (request, 'blog/singlepost.html', {'post':post, 'rand':rand})
+    return render (request, 'blog/singlepost.html', {'post':post, 'rand':rand, 'likes':likes})
+
+def likeMe (request, id=None):
+    like = Likes.objects.filter(post = id)
+    print like
+    print id
+    if not like:
+        like = Likes()
+        like.user = request.user.get_profile()
+        like.like = 1
+        like.post = Content.objects.get(id=id)
+        like.save()
+    else:
+        like.like += 1
+
+    return render (request, 'blog/like.html', {'like':like})
 
 
 

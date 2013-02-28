@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+
+абырвал | поиск {{ search_term }}
+
+{% endblock %}
+
+{% block content %}
+
+        <h2>Результаты поиска по {{ search_term }}</h2>
+		
+		<h3>в блогах:</h3>
+{% if search_blog %}				
+	{% for blog_res in search_blog %}
+        <ul style="list-style: none;">
+            <li><h3><a href="/content/?blog={{ res.id }}&name={{ res.user }}">блог {{ blog_res.title }}</a></h3></li>
+            <li><p>описание {{ blog_res.description }}</p></li>
+			<li>ID - {{ blog_res.id }}</li>
+			<li>тэги - {{ blog_res.tags }}</li>
+            <li>аФФтор - <a href="/accounts/profile/{{ blog_res.user.id }}">{{ blog_res.user }}</a></li>
+				<li>создан	{{ blog_res.created_at }}</li>
+        </ul>
+    {% endfor %}
+{% else %}
+		<p>ничего не найдено =(</p>
+{% endif %}
+	
+	<h3>в постах:</h3>
+	
+{#{% if search_post %}				
+	{% for post_res in search_post %}
+        <ul style="list-style: none;">
+            <li><h3><a href="/view_post/{{ post_res.id }}">пост {{ post_res.post_title }}</a></h3></li>
+            <li><p>{{ post_res.post }}</p></li>
+            <li>аФФтор - <a href="/accounts/profile/{{ post_res.author.id }}">{{ post_res.author }}</a></li>
+				<li>создан	{{ res.created_at }}</li>
+        </ul>
+    {% endfor %}
+{% else %}
+		<p>ничего не найдено =(</p>
+{% endif %}#}
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+﻿{% extends "blog/base.html" %}
+
+{% block content %}
+	{{ user.username }} {{ name }} {{ id }}
+	
+	{% if error %}
+		<p>Ошибочка вышла =(</p>
+	{% endif %}
+	
+    <form action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+
+{% endblock %}
