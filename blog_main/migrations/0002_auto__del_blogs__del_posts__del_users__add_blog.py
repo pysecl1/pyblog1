@@ -22,6 +22,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
+
             ('description', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal('blog_main', ['Blog'])
