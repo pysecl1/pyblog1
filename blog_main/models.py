@@ -24,7 +24,7 @@ class Blog (models.Model):
     user = models.ForeignKey(sUser)
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField()
-#    tags = models.CharField(max_length = 255)
+    tags = models.CharField(max_length = 255)
 #
 #    #author = models.ForeignKey(sUser, unique=True)
 #    #logo = models.FileField(upload_to='logo', blank=True)
