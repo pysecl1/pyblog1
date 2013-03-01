@@ -155,7 +155,7 @@ def likeMe (request, id=None):
         like.save()
         Likes().isLike(id, request.user)
 
-    elif Likes.objects.filter(models.Q(user=request.user) & models.Q(like = 0)):
+    elif Likes.objects.filter(models.Q(user=request.user) & models.Q(like = 0) & models.Q(post=id)):
         Content().plusLike(id)
         Likes().isLike(id, request.user)
 
