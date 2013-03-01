@@ -79,7 +79,7 @@ def create_blog (request):
         blog.user = request.user
         blog.title = request.POST.get('title')
         blog.description = request.POST.get('description')
-        #blog.tags = request.POST.get('blog_tags')
+        blog.tags = request.POST.get('tags')
         blog.save()
         return redirect_to (request, '/')
     else:

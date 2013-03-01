@@ -29,7 +29,7 @@ def wright_posts (request):
         post.blog_id = Blog().getBlogId(blog)
         post.save()
         #return HttpResponseRedirect(request.META.get('HTTP_REFERER', None))
-        return HttpResponseRedirect("/content/?blog=%s&name=%s" % request.POST.get('blog'), request.user.name)
+        return HttpResponseRedirect("/content/?blog=%s&name=%s" % (request.GET.get('id'), request.user))
     else:
         from forms import ContentForm
         form = ContentForm()
