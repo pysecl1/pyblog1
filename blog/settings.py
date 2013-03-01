@@ -77,8 +77,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 
-    #APP_DIR+'static',
-    'c:/work_temp/web/phyton/pyblog1/static',
+    APP_DIR+'static',
+    #'c:/work_temp/web/phyton/pyblog1/static',
     )
 
 
@@ -140,7 +140,7 @@ INSTALLED_APPS = (
     'blogs',
     'sprofile',
     'south',
-    'fixture_generator',
+    #'fixture_generator',
     'django.contrib.comments',
 )
 
