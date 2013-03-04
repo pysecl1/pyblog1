@@ -141,7 +141,7 @@ INSTALLED_APPS = (
     'blogs',
     'sprofile',
     'south',
-    'fixture_generator',
+    #'fixture_generator',
     'django.contrib.comments',
 )
 
