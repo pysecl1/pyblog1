@@ -26,15 +26,22 @@ class BlogTags (models.Model):
 
 
 class Blog (models.Model):
-    user = models.ForeignKey(sUser)
+    user = models.ForeignKey(sUser, unique=True)
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField()
     tags = models.CharField(max_length = 255)
+##<<<<<<< HEAD
     tags = models.ManyToManyField(BlogTags)
 #
 #    #author = models.ForeignKey(sUser, unique=True)
 ##    logo = models.FileField(upload_to='logo', blank=True)
     created_at = models.DateField(default=datetime.date.today())
+##=======
+###
+###    #author = models.ForeignKey(sUser, unique=True)
+###    #logo = models.FileField(upload_to='logo', blank=True)
+##    created_at = models.DateField(blank=True, null=True, default=datetime.date.today())
+##>>>>>>> 3eb972486d29895357819facd4a4c89bdc1b241f
     def __unicode__(self):
 
         return u'Блог «%s» пользователя %s' % ( self.description, self.user.get_profile())

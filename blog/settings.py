@@ -65,12 +65,12 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
-
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../staticroot/").replace('\\','/')
+print STATIC_ROOT
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = os.path.join(os.path.dirname(__file__), "../static/").replace('\\','/')#'static/'
-
+#STATIC_URL = os.path.join(os.path.dirname(__file__), "../static/").replace('\\','/')#'static/'
+STATIC_URL ='/static/';
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -78,7 +78,8 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 
     #APP_DIR+'static',
-    'c:/work_temp/web/phyton/pyblog1/static',
+    STATIC_ROOT+'static/',
+    #'c:/work_temp/web/phyton/pyblog1/static',
     )
 
 
@@ -140,7 +141,7 @@ INSTALLED_APPS = (
     'blogs',
     'sprofile',
     'south',
-    'fixture_generator',
+    #'fixture_generator',
     'django.contrib.comments',
 )
 

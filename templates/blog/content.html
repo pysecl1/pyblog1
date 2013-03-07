@@ -37,11 +37,15 @@
 		
     {% endfor %}
 
+    {% if user.username == name %}
+        <a href="/post/?id={{blog}}">написать пост</a>
+    {% endif %}
+
     <div class="pagination">
     <span class="step-links">
 	{% if posts %}
         {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}&blog={{ blog_obj.id }}">previous</a>
+            <a href="?page={{ posts.previous_page_number }}&blog={{ blog_obj.id }}&name={{ user.username}}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -49,15 +53,13 @@
         </span>
 
         {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}&blog={{ blog_obj.id }}">next</a>
+            <a href="?page={{ posts.next_page_number }}&blog={{ blog_obj.id }}&name={{ user.username}}">next</a>
         {% endif %}
 	{% else %}
 		<h5>увы суда ещё никто не писал</h5>
 	{% endif %}
     </span>
-	{% if user.username == name %}
-    <a href="/post/?id={{blog}}">написать пост</a>
-	{% endif %}
+
     </div>
 	
 

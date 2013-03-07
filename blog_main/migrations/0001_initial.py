@@ -18,8 +18,14 @@ class Migration(SchemaMigration):
         # Adding model 'Blog'
         db.create_table('blog_main_blog', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+##<<<<<<< HEAD:blog_main/migrations/0001_initial.py
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('title', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
+##=======
+##            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
+##            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
+##
+##>>>>>>> 3eb972486d29895357819facd4a4c89bdc1b241f:blog_main/migrations/0002_auto__del_blogs__del_posts__del_users__add_blog.py
             ('description', self.gf('django.db.models.fields.TextField')()),
             ('created_at', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 3, 4, 0, 0))),
         ))
