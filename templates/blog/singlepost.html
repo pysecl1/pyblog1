@@ -10,14 +10,23 @@
 	<ul style="list-style: none;">
 		<li><h3>{{ post.post_title }}</h3></li>
 		<li><p>{{ post.post }}</p></li>
+		<li>{{ post.author.avatar }}</li>
 		<li>аФФтор - {{ post.author }}</li>
+		{% if user.is.authenticated %}
 		<li>{% if post.c_likes == 0 %}
 				<a href="{% url like post.id %}">пока никому не понравилось</a>
 			{% else %}
 				<a href="{% url like post.id %}" title="{% for usr in likes %}{{ usr.user.user }}, {% endfor %}">like {{ post.c_likes }}</a>
-			{% endif %}
-		
+			{% endif %}		
 		</li>
+		{% else %}
+		<li>{% if post.c_likes == 0 %}
+				<a href="{% url login %}">пока никому не понравилось</a>
+			{% else %}
+				<a href="{% url login %}" title="{% for usr in likes %}{{ usr.user.user }}, {% endfor %}">like {{ post.c_likes }}</a>
+			{% endif %}		
+		</li>
+		{% endif %}
 		</ul>
 
 		{% if user.username == post.author.first_name %}

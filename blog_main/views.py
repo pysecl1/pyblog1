@@ -45,12 +45,15 @@ def home(request):
     #kon
     #user = request.user
     myBlog = Blog().hasBlog(request.user)
+    user = request.user
+    if not user.is_anonymous():
+        user = request.user.get_profile()
 
     #myBlog.getBlogByUser(user)
 
 ##    print 'blogs'
 ##    print blogs
-    return render (request, 'blog/index.html', {'blogs':blogs, 'myBlog':myBlog, 'sitename':sitename})
+    return render (request, 'blog/index.html', {'blogs':blogs, 'myBlog':myBlog, 'sitename':sitename, 'user':user})
     #return render_to_response("blog/index.html", context_instance=RequestContext(request))
 
 #def wright_post (request):

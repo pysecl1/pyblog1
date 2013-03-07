@@ -8,8 +8,11 @@
 
 
 {{ blog.user.id }}
+
     {% if not user.is_anonymous %}
         <h1>Привет, {{ user }}!</h1><br>
+		<img style="float: left; margin-right: 15px;" src="{{ MEDIA_URL }}{{ user.avatar }}" width=200;/>
+		
 		{% if myBlog %}
 		<h3> Ваши блоги </h3>
         <ul style="list-style: none;">
@@ -26,9 +29,11 @@
 		{% endif %}
 		
     {% endif %}
+	<div class="clear"></div>
         Контент
 		
 	{% for blog in blogs %}
+	<div class="blog">
         <ul style="list-style: none;">
             <li><h3><a href="/content/?blog={{ blog.id }}&name={{ blog.user }}">блог {{ blog.title }}</a></h3></li>
             <li><p>описание {{ blog.description }}</p></li>
@@ -39,9 +44,12 @@
                 {{ tag }}, 
             {% endfor %}
 			</li>
+			{{ blog.user.get_profile.avatar }}
+			<li>{{ blog.user.avatar }}</li>
             <li>аФФтор - <a href="/accounts/profile/{{ blog.user.id }}">{{ blog.user }}</a></li>
 				<li>создан:	{{ blog.created_at }}</li>
         </ul>
+	</div>
     {% endfor %}
 
 

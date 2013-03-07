@@ -13,11 +13,11 @@ class User(models.Model):
     #email=models.EmailField()
     birthday=models.DateField(blank=True,auto_now=True)
     #phone=models.CharField(max_length=100,blank=True)
-    #avatar=models.FileField(upload_to='avatar', blank=True)
+    avatar=models.FileField(upload_to='avatar', blank=True, default=False)
 
 
     def __unicode__(self):
-        return u'%d — %s %s' % (self.user.id,  self.first_name, self.last_name)
+        return u'%s %s' % (self.first_name, self.last_name)
 
     def get_name(self):
         return self.first_name+' '+self.last_name

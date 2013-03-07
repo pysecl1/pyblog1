@@ -776,6 +776,9 @@ div.left_holiday {
   padding: 7px 3px;
   width: 112px;
 }
+.left_box_link {
+  padding-top: 5px;
+}
 .left_congratulate {
   padding-top: 3px;
 }
