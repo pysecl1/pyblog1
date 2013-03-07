@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^like/(?P<id>\d+)$','blogs.views.likeMe', name='like'),
     url(r'^content/','blogs.views.show_posts'),
 
-    url(r'^editblog/','blog_main.views.edit_blog'),
+    url(r'^editblog/(?P<id>\d+)$','blog_main.views.edit_blog'),
 
     url(r'^edit-post/(?P<id>\d+)$','blogs.views.editPost', name='editpost'),
     url(r'^myblogs/','blog_main.views.myBlogs', name='myblogs'),

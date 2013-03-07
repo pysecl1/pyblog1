@@ -107,7 +107,6 @@ def show_posts (request, page=1):
 ##            print usver
         posts = Content.objects.filter(blog_id=request.GET.get('blog')).order_by('-created_at', 'updated_at')
 
-
     else:
         posts = Content.objects.filter(author=request.GET.get('name')).order_by('-created_at', 'updated_at')
 
@@ -132,9 +131,9 @@ def show_posts (request, page=1):
 
 def singlePost (request, id=None):
     post = Content.objects.get(id=id)
-    likes = Likes.objects.filter(post = id)
+    likes = Likes.objects.filter(models.Q(post = id) & models.Q(like = 1))
     if not likes:
-        likes = False
+        likes = None
 ##    blog = request.POST.get(id)
 ##    blog_obj = Blog.objects.get(id=blog)
     ref = request.META.get('HTTP_REFERER', None)

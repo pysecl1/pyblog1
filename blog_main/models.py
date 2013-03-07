@@ -19,16 +19,22 @@ import datetime
 #        return self.username
 
 
+class BlogTags (models.Model):
+    tag = models.CharField(max_length=50, unique=True)
+    def __unicode__(self):
+        return self.tag
+
 
 class Blog (models.Model):
     user = models.ForeignKey(sUser)
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField()
-#    tags = models.CharField(max_length = 255)
+    tags = models.CharField(max_length = 255)
+    tags = models.ManyToManyField(BlogTags)
 #
 #    #author = models.ForeignKey(sUser, unique=True)
-#    #logo = models.FileField(upload_to='logo', blank=True)
-#    created_at = models.DateField(blank=True, null=True, default=datetime.date.today())
+##    logo = models.FileField(upload_to='logo', blank=True)
+    created_at = models.DateField(default=datetime.date.today())
     def __unicode__(self):
 
         return u'Блог «%s» пользователя %s' % ( self.description, self.user.get_profile())
@@ -50,8 +56,6 @@ class Blog (models.Model):
 
     def lastPosts (self):
         pass
-
-
 
 
 

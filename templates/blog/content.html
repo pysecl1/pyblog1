@@ -22,6 +22,8 @@
 			{% get_comment_count for blogs.content post.id as comment_count %}
 			коментов - {{ comment_count }}
         </ul>
+		
+		{{ like_users }}
 
 		{% if user.username == post.author.first_name %}
 				<!-- <a href="{% url editpost post.id %}">редактировать</a> -->

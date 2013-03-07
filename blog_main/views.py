@@ -17,9 +17,9 @@ from forms import BlogForm
 
 def siteName(request):
     sitename = 'ggg'
-    html = sitename.render(Context({'sitename':sitename}))
+##    html = sitename.render(Context({'sitename':sitename}))
 ##    return render (request, 'blog/base.html', {'sitename':sitename})
-    return HttpResponse(html)
+    return render (request, 'blog/base.html', {'sitename':sitename})
 
 
 #def home(request):
@@ -41,7 +41,7 @@ def home(request):
     #return HttpResponse('<input type="text">')
     #kommented 24.02.2013
     #nach
-    blogs = Blog.objects.all()#.order_by ('-created_at')
+    blogs = Blog.objects.all().order_by ('-created_at')
     #kon
     #user = request.user
     myBlog = Blog().hasBlog(request.user)
@@ -60,17 +60,24 @@ def home(request):
 #        post.description = request.POST.get('post_desc')
 #        post.content = request.POST.get('post_content')
 
-def edit_blog(request):
-    user=request.user;
-    anon=user.is_anonymous()
-    if not anon:
-
-        form=BlogForm()
-        blog=Blog.objects.filter(user=user);
-
+def edit_blog(request, id=None):
+##    user=request.user;
+##    anon=user.is_anonymous()
+##    if not anon:
+##
+##        form=BlogForm()
+##        blog=Blog.objects.get(user=user);
+##
+##        return render_to_response('blog/edit.html',{'form':form},context_instance=RequestContext(request));
+##    else:
+##        return redirect_to(request,'/');
+    blog=Blog.objects.get(id=id);
+    if request.method == 'POST':
+        pass
+    if request.user == blog.user:
+        form=BlogForm(instance=blog)
         return render_to_response('blog/edit.html',{'form':form},context_instance=RequestContext(request));
-    else:
-        return redirect_to(request,'/');
+
 
 def create_blog (request):
     if request.POST:
@@ -79,7 +86,7 @@ def create_blog (request):
         blog.user = request.user
         blog.title = request.POST.get('title')
         blog.description = request.POST.get('description')
-        #blog.tags = request.POST.get('blog_tags')
+##        blog.tags = request.POST.get('blog_tags')
         blog.save()
         return redirect_to (request, '/')
     else:

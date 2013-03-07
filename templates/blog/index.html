@@ -33,9 +33,14 @@
             <li><h3><a href="/content/?blog={{ blog.id }}&name={{ blog.user }}">блог {{ blog.title }}</a></h3></li>
             <li><p>описание {{ blog.description }}</p></li>
 			<li>ID - {{ blog.id }}</li>
-			<li>тэги - {{ blog.tags }}</li>
+			<li>тэги - {{ blog.tags.all }}</li>
+			<li>blogtags -
+			{% for tag in blog.tags.all %}
+                {{ tag }}, 
+            {% endfor %}
+			</li>
             <li>аФФтор - <a href="/accounts/profile/{{ blog.user.id }}">{{ blog.user }}</a></li>
-				<li>создан	{{ blog.created_at }}</li>
+				<li>создан:	{{ blog.created_at }}</li>
         </ul>
     {% endfor %}
 

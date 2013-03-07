@@ -14,7 +14,7 @@
 		<li>{% if post.c_likes == 0 %}
 				<a href="{% url like post.id %}">пока никому не понравилось</a>
 			{% else %}
-				<a href="{% url like post.id %}">like {{ post.c_likes }}</a>
+				<a href="{% url like post.id %}" title="{% for usr in likes %}{{ usr.user.user }}, {% endfor %}">like {{ post.c_likes }}</a>
 			{% endif %}
 		
 		</li>
@@ -25,9 +25,9 @@
 				<form action="{% url delpost post.id %}" method="post">{% csrf_token %}
 					<input type="submit" value="удалить">
 				</form>
-				{% if ref %}
+		{% endif %}
+		{% if ref %}
 				<a href="/content?blog={{ post.blog_id.id }}&name={{ post.author.first_name }}">назад</a>
-				{% endif %}
 		{% endif %}
 		
 		{% render_comment_list for post %}

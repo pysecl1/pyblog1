@@ -8,55 +8,41 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting model 'Blogs'
-        db.delete_table('blog_main_blogs')
-
-        # Deleting model 'Posts'
-        db.delete_table('blog_main_posts')
-
-        # Deleting model 'Users'
-        db.delete_table('blog_main_users')
+        # Adding model 'BlogTags'
+        db.create_table('blog_main_blogtags', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('tag', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
+        ))
+        db.send_create_signal('blog_main', ['BlogTags'])
 
         # Adding model 'Blog'
         db.create_table('blog_main_blog', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('title', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
             ('description', self.gf('django.db.models.fields.TextField')()),
+            ('created_at', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 3, 4, 0, 0))),
         ))
         db.send_create_signal('blog_main', ['Blog'])
 
+        # Adding M2M table for field tags on 'Blog'
+        db.create_table('blog_main_blog_tags', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('blog', models.ForeignKey(orm['blog_main.blog'], null=False)),
+            ('blogtags', models.ForeignKey(orm['blog_main.blogtags'], null=False))
+        ))
+        db.create_unique('blog_main_blog_tags', ['blog_id', 'blogtags_id'])
+
 
     def backwards(self, orm):
-        # Adding model 'Blogs'
-        db.create_table('blog_main_blogs', (
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('created_at', self.gf('django.db.models.fields.DateField')(default='today')),
-            ('logo', self.gf('django.db.models.fields.files.FileField')(max_length=100, blank=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        ))
-        db.send_create_signal('blog_main', ['Blogs'])
-
-        # Adding model 'Posts'
-        db.create_table('blog_main_posts', (
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        ))
-        db.send_create_signal('blog_main', ['Posts'])
-
-        # Adding model 'Users'
-        db.create_table('blog_main_users', (
-            ('b_day', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('username', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        ))
-        db.send_create_signal('blog_main', ['Users'])
+        # Deleting model 'BlogTags'
+        db.delete_table('blog_main_blogtags')
 
         # Deleting model 'Blog'
         db.delete_table('blog_main_blog')
+
+        # Removing M2M table for field tags on 'Blog'
+        db.delete_table('blog_main_blog_tags')
 
 
     models = {
@@ -91,10 +77,17 @@ class Migration(SchemaMigration):
         },
         'blog_main.blog': {
             'Meta': {'object_name': 'Blog'},
+            'created_at': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 3, 4, 0, 0)'}),
             'description': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
+            'tags': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['blog_main.BlogTags']", 'symmetrical': 'False'}),
+            'title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+        },
+        'blog_main.blogtags': {
+            'Meta': {'object_name': 'BlogTags'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'tag': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
