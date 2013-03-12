@@ -4,8 +4,11 @@
     <form method="POST" action='/profile/' enctype="multipart/form-data">{% csrf_token %}
 
         {{ form.as_ul }}
-        {{ form.avatar.value }}
-        {{ user.get_profile.avatar }}
+		{% if form.avatar.value %}
+        <img src="{{ MEDIA_URL }}{{ form.avatar.value }}" width=100; />
+		{% else %}
+		<img src="{{ MEDIA_URL }}no_image.jpg" width=100; />
+		{% endif %}
         <input type="submit" value="Сохранить">
 
 

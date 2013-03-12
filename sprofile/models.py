@@ -11,7 +11,7 @@ class User(models.Model):
     last_name=models.CharField(max_length=200)
     gender=models.CharField(max_length=200,choices=GENDER_CHOICES,default='m')
     #email=models.EmailField()
-    birthday=models.DateField(blank=True,auto_now=True)
+    birthday=models.DateField(blank=True)
     #phone=models.CharField(max_length=100,blank=True)
     avatar=models.FileField(upload_to='avatar', blank=True, default=False)
 

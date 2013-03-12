@@ -16,6 +16,7 @@ from django.contrib.auth.models import User as sUser
 from django.contrib.auth import views, authenticate
 from django.http import HttpResponseRedirect
 from sprofile.models import User
+from blog_main.models import Blog
 
 
 def main(request):
@@ -127,7 +128,7 @@ def profile(request):
         if form.is_valid():
             print "VALID"
             form.save()
-            return redirect_to(request,'/')
+            return redirect ('/accounts/profile/')
 
 
     return render_to_response('sprof/profile.html',{'form':form}, context_instance=RequestContext(request))
@@ -188,8 +189,10 @@ def users_list(request):
 def user_profile(request, id=None):
     if id:
         user=User.objects.get(pk=id)
+        blogs = Blog().hasBlog(user)
     else:
-        user=request.user.get_profile
-    return render(request,'sprof/user_profile.html',{'profile':user})
+        user=request.user.get_profile()
+        blogs = Blog().hasBlog(user)
+    return render(request,'sprof/user_profile.html',{'profile':user, 'blogs':blogs})
 
 

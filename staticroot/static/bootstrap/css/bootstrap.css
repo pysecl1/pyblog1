@@ -8,6 +8,23 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+ .blog {
+ background: #E9EDF1;
+ border-color: #D9E0E7;
+ color: #607387;
+ border-radius: 5px;
+ margin: 10px 0px;
+ padding: 10px 0px;
+ 
+ }
+ 
+ .clear {
+ clear: both;
+ }
+ 
+ 
+ 
+ 
 article,
 aside,
 details,

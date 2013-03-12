@@ -11,7 +11,11 @@
 
     {% if not user.is_anonymous %}
         <h1>Привет, {{ user }}!</h1><br>
-		<img style="float: left; margin-right: 15px;" src="{{ MEDIA_URL }}{{ user.avatar }}" width=200;/>
+		{% if user.avatar != 'False' and user.avatar != '' %}
+			<img style="float: left; margin-right: 15px;" src="{{ MEDIA_URL }}{{ user.avatar }}" width=200;/>
+		{% else %}
+			<img style="float: left; margin-right: 15px;" src="{{ MEDIA_URL }}no_image.jpg" width=100; />
+		{% endif %}
 		
 		{% if myBlog %}
 		<h3> Ваши блоги </h3>
@@ -44,9 +48,15 @@
                 {{ tag }}, 
             {% endfor %}
 			</li>
-			{{ blog.user.get_profile.avatar }}
+			<li>
+			{% if blog.user.get_profile.avatar != 'False' and blog.user.get_profile.avatar != '' %}
+			<img style="float: left; margin-right: 15px;" src="{{ MEDIA_URL }}{{ blog.user.get_profile.avatar }}" width=50; />
+			{% else %}
+			<img style="float: left; margin-right: 15px;" src="{{ MEDIA_URL }}no_image.jpg" width=50; />
+			{% endif %}
+			</li>
 			<li>{{ blog.user.avatar }}</li>
-            <li>аФФтор - <a href="/accounts/profile/{{ blog.user.id }}">{{ blog.user }}</a></li>
+            <li>аФФтор - <a href="/accounts/profile/{{ blog.user.id }}">{{ blog.user.get_profile.first_name }} {{ blog.user.get_profile.last_name }}</a></li>
 				<li>создан:	{{ blog.created_at }}</li>
         </ul>
 	</div>

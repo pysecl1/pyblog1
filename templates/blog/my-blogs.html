@@ -11,7 +11,7 @@
 		<h3> Ваши блоги </h3>
         
 		{% for myBlogs in myBlog %}
-		<ul style="list-style: none; border-bottom: 1px solid #000;">
+		<ul style="list-style: none; border-bottom: 1px solid #607387;">
             <li><a href="/content/?blog={{ myBlogs.id }}&name={{ myBlogs.user }}"><h4>{{ myBlogs.title }}</h4></a></li>
 			<li>{{ myBlogs.description }}</li>
 			<li><form action="{% url delblog myBlogs.id %}" method="post">{% csrf_token %}

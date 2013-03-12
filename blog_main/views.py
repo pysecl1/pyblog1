@@ -48,7 +48,6 @@ def home(request):
     user = request.user
     if not user.is_anonymous():
         user = request.user.get_profile()
-
     #myBlog.getBlogByUser(user)
 
 ##    print 'blogs'
@@ -130,7 +129,7 @@ def search (request):
         if search_term:
 ##            search = Blog.objects.filter(title__contains=search_term)
             search_blog = Blog.objects.filter(models.Q(title__contains=search_term) | models.Q(description__contains=search_term))
-            search_post = Content.objects.filter(models.Q(post_title__contains=search_term) | models.Q(post__contains=search_term))
+            search_post = Content.objects.filter(models.Q(post_title__icontains=search_term) | models.Q(post__icontains=search_term))
 
             return render (request, 'blog/search.html', {'search_blog':search_blog, 'search_post':search_post,'search_term':search_term})
     return redirect ("/")

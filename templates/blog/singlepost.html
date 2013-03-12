@@ -12,7 +12,7 @@
 		<li><p>{{ post.post }}</p></li>
 		<li>{{ post.author.avatar }}</li>
 		<li>аФФтор - {{ post.author }}</li>
-		{% if user.is.authenticated %}
+		{% if user.is_authenticated %}
 		<li>{% if post.c_likes == 0 %}
 				<a href="{% url like post.id %}">пока никому не понравилось</a>
 			{% else %}
